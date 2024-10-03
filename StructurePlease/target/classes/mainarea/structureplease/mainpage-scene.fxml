@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="768.0" prefWidth="1052.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.MainPageController">
+<BorderPane prefHeight="768.0" prefWidth="1052.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.MainPageController">
    <center>
       <HBox BorderPane.alignment="CENTER">
          <children>
@@ -26,18 +26,18 @@
       </HBox>
    </center>
    <left>
-      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="314.0" BorderPane.alignment="TOP_LEFT">
+      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="314.0" style="-fx-background-color: transparent;" BorderPane.alignment="TOP_LEFT">
          <children>
             <HBox VBox.vgrow="ALWAYS">
                <children>
-                  <AnchorPane prefHeight="774.0" prefWidth="314.0" style="-fx-background-color: #FFFFFF;">
+                  <AnchorPane prefHeight="774.0" prefWidth="314.0" style="-fx-background-color: #FFFFFF; -fx-border-color: F92727; -fx-border-radius: 28;">
                      <children>
                         <Button layoutX="76.0" layoutY="21.0" mnemonicParsing="false" onAction="#switchToOpening" prefHeight="84.0" prefWidth="221.0" style="-fx-background-color: transparent;" text="CHAVITO">
                            <font>
                               <Font size="40.0" />
                            </font>
                         </Button>
-                        <Button layoutX="76.0" layoutY="157.0" mnemonicParsing="false" onAction="#showWordPop" prefHeight="51.0" prefWidth="219.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="WordPop">
+                        <Button fx:id="wordPopButton" layoutX="76.0" layoutY="157.0" mnemonicParsing="false" onAction="#showWordPop" onTouchPressed="#onPressed" prefHeight="51.0" prefWidth="219.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="WordPop">
                            <font>
                               <Font size="32.0" />
                            </font>

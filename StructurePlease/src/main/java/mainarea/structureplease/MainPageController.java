@@ -2,9 +2,16 @@ package mainarea.structureplease;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -16,7 +23,7 @@ public class MainPageController {
     public Node chabaFlashID;
     private ImageView wordpopIMGLink, dictionaryIMGLink, translatorIMGLink, chabaflashIMGLink, chabiNormalIMGLink;
     private Image wordpopIMG, dictionaryIMG, translatorIMG, chabaflashIMG, chabiNormalIMG;
-
+    @FXML private Button wordPopButton;
     private OpeningController openingController;
 
     public void initialize(){
@@ -71,5 +78,10 @@ public class MainPageController {
 
         chabiNormalIMG = new Image(getClass().getResourceAsStream("/resources/images/chabiNormal.png"));
         chabiNormalIMGLink.setImage(chabiNormalIMG);
+    }
+
+    //DI NAGANA !!! FOR HOVER// OR WHEN A BUTTON IS PRESSED
+    public void onPressed(){
+        wordPopButton.setBackground(Background.fill(Color.web("#F92727")));
     }
 }
