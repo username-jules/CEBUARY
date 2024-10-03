@@ -5,28 +5,32 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.MainPageController">
-   <children>
-      <BorderPane layoutX="310.0" layoutY="-6.0" prefHeight="768.0" prefWidth="1052.0">
-         <center>
-            <AnchorPane prefHeight="768.0" prefWidth="1052.0" BorderPane.alignment="CENTER">
+<BorderPane prefHeight="768.0" prefWidth="1052.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.MainPageController">
+   <center>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <StackPane prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
-                  <fx:include fx:id="dictionaryID" source="dictionary-scene.fxml" />
                   <fx:include fx:id="wordID" source="wordpop-scene.fxml" />
                   <fx:include fx:id="translationID" source="translation-scene.fxml" />
+                  <fx:include fx:id="dictionaryID" source="dictionary-scene.fxml" />
                   <fx:include fx:id="chabaFlashID" source="chabaflash-scene.fxml" />
                </children>
-            </AnchorPane>
-         </center>
-      </BorderPane>
-      <BorderPane prefHeight="768.0" prefWidth="312.0">
-         <top>
-            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="314.0" BorderPane.alignment="CENTER">
+            </StackPane>
+         </children>
+      </HBox>
+   </center>
+   <left>
+      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="314.0" BorderPane.alignment="TOP_LEFT">
+         <children>
+            <HBox VBox.vgrow="ALWAYS">
                <children>
-                  <AnchorPane prefHeight="774.0" prefWidth="314.0">
+                  <AnchorPane prefHeight="774.0" prefWidth="314.0" style="-fx-background-color: #FFFFFF;">
                      <children>
                         <Button layoutX="76.0" layoutY="21.0" mnemonicParsing="false" onAction="#switchToOpening" prefHeight="84.0" prefWidth="221.0" style="-fx-background-color: transparent;" text="CHAVITO">
                            <font>
@@ -81,8 +85,8 @@
                      </children>
                   </AnchorPane>
                </children>
-            </VBox>
-         </top>
-      </BorderPane>
-   </children>
-</AnchorPane>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>
