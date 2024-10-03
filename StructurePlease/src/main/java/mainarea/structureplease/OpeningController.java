@@ -1,7 +1,6 @@
 package mainarea.structureplease;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -10,16 +9,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainController {
+public class OpeningController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+//    static instance niya kasi hindi nagana if OpeningController op = new OpeningController
+    //may getter method siya sa baba
+    private static OpeningController openingController;
 
-    private SceneHelper sceneHelper = new SceneHelper(); // Initialize helper class
-
-    @FXML private Node wordID;
-    @FXML private Node dictionaryID;
-    @FXML private Node translationID;
+    //parang constructor siya
+    public void initialize(){
+        openingController = this;
+    }
 
     public void switchToOpening(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("opening-scene.fxml"));
@@ -37,15 +38,10 @@ public class MainController {
         stage.show();
     }
 
-    public void showWordPop() {
-        sceneHelper.showWordPop(wordID, dictionaryID, translationID);  // Use helper class method
-    }
 
-    public void showDictionary() {
-        sceneHelper.showDictionary(wordID, dictionaryID, translationID);  // Use helper class method
-    }
-
-    public void showTranslation() {
-        sceneHelper.showTranslation(wordID, dictionaryID, translationID);  // Use helper class method
+    //getter method para makuha ng other classes. So way lang siya para magkaron ng connection yung other classes
+    //dito kasi nga di pwede mag instantiate
+    public static OpeningController getOpeningController() {
+        return openingController;
     }
 }
