@@ -7,10 +7,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane minHeight="768.0" minWidth="1052.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.DictionarySceneController">
+<AnchorPane minHeight="768.0" minWidth="1052.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 2;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.DictionarySceneController">
    <children>
-      <Text fill="#f92727" layoutX="149.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dictionary" AnchorPane.leftAnchor="138.0" AnchorPane.topAnchor="88.0">
+      <Text fill="#f92727" layoutX="157.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dictionary" AnchorPane.leftAnchor="157.0" AnchorPane.topAnchor="93.0">
          <font>
             <Font size="48.0" />
          </font>
@@ -23,7 +22,7 @@
             <Font size="24.0" />
          </font>
       </TextField>
-      <AnchorPane layoutX="146.0" layoutY="193.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="778.0" style="-fx-border-color: F92727; -fx-border-radius: 28;" AnchorPane.bottomAnchor="75.20000000000005" AnchorPane.leftAnchor="145.60000000000002" AnchorPane.rightAnchor="127.60000000000002" AnchorPane.topAnchor="193.0">
+      <AnchorPane layoutX="146.0" layoutY="193.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="778.0" style="-fx-border-color: F92727; -fx-border-radius: 28; -fx-border-width: 2;" AnchorPane.bottomAnchor="75.20000000000005" AnchorPane.leftAnchor="145.60000000000002" AnchorPane.rightAnchor="127.60000000000002" AnchorPane.topAnchor="193.0">
          <children>
             <VBox layoutX="43.199999999999996" layoutY="28.8" prefHeight="115.0" prefWidth="695.0" style="-fx-spacing: 0;" AnchorPane.bottomAnchor="357.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="28.0">
                <children>
