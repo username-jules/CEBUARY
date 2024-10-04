@@ -32,53 +32,53 @@
                <children>
                   <AnchorPane prefHeight="774.0" prefWidth="314.0" style="-fx-background-color: #FFFFFF; -fx-border-color: F92727; -fx-border-radius: 0 28 28 0; -fx-border-width: 2;">
                      <children>
-                        <Button layoutX="76.0" layoutY="21.0" mnemonicParsing="false" onAction="#switchToOpening" prefHeight="84.0" prefWidth="221.0" style="-fx-background-color: transparent;" text="CHAVITO">
+                        <Button fx:id="chavitoButton" layoutX="81.0" layoutY="29.0" mnemonicParsing="false" onAction="#switchToOpening" prefHeight="84.0" prefWidth="221.0" style="-fx-background-color: transparent;" text="CHAVITO" AnchorPane.leftAnchor="81.0">
                            <font>
                               <Font size="40.0" />
                            </font>
                         </Button>
                         
-                        <Button fx:id="wordPopButton" layoutX="76.0" layoutY="157.0" mnemonicParsing="false" onAction="#showWordPop" onTouchPressed="#onPressed" prefHeight="51.0" prefWidth="219.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="WordPop">
+                        <Button fx:id="wordPopButton" alignment="TOP_LEFT" layoutX="76.0" layoutY="157.0" mnemonicParsing="false" onAction="#showWordPop" prefHeight="69.0" prefWidth="219.0" style="-fx-background-color: transparent;" text="WordPop" AnchorPane.leftAnchor="90.0">
                            <font>
                               <Font size="32.0" />
                            </font>
                         </Button>
-                        <Button layoutX="81.0" layoutY="252.0" mnemonicParsing="false" onAction="#showDictionary" prefHeight="69.0" prefWidth="213.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="Dictionary">
+                        <Button fx:id="dictionaryButton" alignment="TOP_LEFT" layoutX="81.0" layoutY="252.0" mnemonicParsing="false" onAction="#showDictionary" prefHeight="69.0" prefWidth="219.0" style="-fx-background-color: transparent;" text="Dictionary" AnchorPane.leftAnchor="90.0">
                            <font>
                               <Font size="32.0" />
                            </font>
                         </Button>
-                        <Button layoutX="80.0" layoutY="350.0" mnemonicParsing="false" onAction="#showTranslation" prefHeight="69.0" prefWidth="212.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="Translation">
+                        <Button fx:id="translationButton" alignment="TOP_LEFT" layoutX="80.0" layoutY="350.0" mnemonicParsing="false" onAction="#showTranslation" prefHeight="69.0" prefWidth="212.0" style="-fx-background-color: transparent;" text="Translation" AnchorPane.leftAnchor="90.0">
                            <font>
                               <Font size="32.0" />
                            </font>
                         </Button>
-                        <Button layoutX="87.0" layoutY="452.0" mnemonicParsing="false" onAction="#showChabaFlash" style="-fx-background-color: transparent; -fx-alignment: left;" text="Chabaflash">
+                        <Button fx:id="chabaFlashButton" alignment="TOP_LEFT" layoutX="87.0" layoutY="452.0" mnemonicParsing="false" onAction="#showChabaFlash" style="-fx-background-color: transparent;" text="Chabaflash" AnchorPane.leftAnchor="90.0">
                            <font>
                               <Font size="32.0" />
                            </font>
                         </Button>
-                        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="8.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="8.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0">
                            <image>
                               <Image url="@../../images/wordpopimg.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="14.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="14.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0">
                            <image>
                               <Image url="@../../images/dictionaryimg.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="18.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="18.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0">
                            <image>
                               <Image url="@../../images/translatorimg.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="24.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="24.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0">
                            <image>
                               <Image url="@../../images/chabaflashimg.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="123.0" fitWidth="119.0" layoutX="12.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="143.0" fitWidth="147.0" layoutX="-16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="-16.0">
                            <image>
                               <Image url="@../../images/chabiNormal.png" />
                            </image>

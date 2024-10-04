@@ -9,12 +9,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.OpeningController">
    <children>
-      <Button layoutX="920.0" layoutY="407.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="66.0" prefWidth="332.0" style="-fx-background-color: #F92727; -fx-background-radius: 5em;" text="Continue" textFill="WHITE">
+      <Button fx:id="continueButton" layoutX="920.0" layoutY="407.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="66.0" prefWidth="332.0" style="-fx-background-color: #F92727; -fx-background-radius: 5em;" text="Continue" textFill="WHITE">
          <font>
-            <Font size="29.0" />
+            <Font size="32.0" />
          </font>
       </Button>
-      <Text layoutX="153.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ChavacaKnow" wrappingWidth="404.283203125">
+      <Text fx:id="chavacaKnowText" layoutX="153.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ChavacaKnow" wrappingWidth="404.283203125">
          <font>
             <Font size="64.0" />
          </font>
@@ -29,7 +29,7 @@
             <Image url="@../../images/chabiStanding.png" />
          </image>
       </ImageView>
-      <Text layoutX="855.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unlock the rich heritage of Chavacano through learning!" textAlignment="CENTER" wrappingWidth="462.703125">
+      <Text fx:id="unlock" layoutX="855.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unlock the rich heritage of Chavacano through learning!" textAlignment="CENTER" wrappingWidth="462.703125">
          <font>
             <Font size="32.0" />
          </font>
