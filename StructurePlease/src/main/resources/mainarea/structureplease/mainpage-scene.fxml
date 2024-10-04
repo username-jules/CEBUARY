@@ -37,6 +37,7 @@
                               <Font size="40.0" />
                            </font>
                         </Button>
+                        
                         <Button fx:id="wordPopButton" layoutX="76.0" layoutY="157.0" mnemonicParsing="false" onAction="#showWordPop" onTouchPressed="#onPressed" prefHeight="51.0" prefWidth="219.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="WordPop">
                            <font>
                               <Font size="32.0" />
