@@ -14,4 +14,6 @@ module mainarea.structureplease {
 
     opens mainarea.structureplease to javafx.fxml;
     exports mainarea.structureplease;
+    exports mainarea.structureplease.dictionaryscene;
+    opens mainarea.structureplease.dictionaryscene to javafx.fxml;
 }

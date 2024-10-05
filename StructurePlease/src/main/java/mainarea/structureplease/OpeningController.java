@@ -25,9 +25,13 @@ public class OpeningController {
     public Text unlock;
 
     private static OpeningController openingController;
+    private Data dictionaryData;
 
     //parang constructor siya
     public void initialize(){
+        dictionaryData = new Data();
+        dictionaryData.loadDictionary("/data/dictionary.txt");
+
         openingController = this;
         fontIntializer1();
     }
@@ -52,9 +56,9 @@ public class OpeningController {
         Font texts = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Regular.otf").toExternalForm(), 32);
         Font chavacaknow = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 62);
 
-        chavacaKnowText.setFont(chavacaknow);
-        continueButton.setFont(texts);
-        unlock.setFont(texts);
+//        chavacaKnowText.setFont(chavacaknow);
+//        continueButton.setFont(texts);
+//        unlock.setFont(texts);
 
     }
 
@@ -63,5 +67,9 @@ public class OpeningController {
     public static OpeningController getOpeningController() {
         return openingController;
 
+    }
+
+    public Data getDictionaryData() {
+        return dictionaryData;
     }
 }

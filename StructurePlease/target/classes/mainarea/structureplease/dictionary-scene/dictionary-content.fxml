@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="778.0" style="-fx-border-color: F92727; -fx-border-radius: 28; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.dictionaryscene.DictionaryContentController">
+   <children>
+      <VBox layoutX="40.8" layoutY="33.6" prefHeight="110.0" prefWidth="695.0" style="-fx-spacing: 0;" AnchorPane.bottomAnchor="359.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="31.0">
+         <children>
+            <Text fx:id="word" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenidos">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+            </Text>
+            <Text fx:id="enunciation" strokeType="OUTSIDE" strokeWidth="0.0" text="bee-en-veh-NEE-dos" wrappingWidth="203.3804931640625">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+      <VBox layoutX="41.0" layoutY="142.0" prefHeight="325.0" prefWidth="695.0">
+         <children>
+            <Text fx:id="classification" strokeType="OUTSIDE" strokeWidth="0.0" text="Noun">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="translationEnglish" strokeType="OUTSIDE" strokeWidth="0.0" text="Greetings, Salutations">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Text>
+            <Text fx:id="translationFilipino" strokeType="OUTSIDE" strokeWidth="0.0" text="Pagbati">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Example Sentences">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Text>
+            <TextFlow>
+               <children>
+                  <Text fx:id="exampleEnglish" strokeType="OUTSIDE" strokeWidth="0.0" text="English: Welcome to Zamboanga City">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+               </children>
+            </TextFlow>
+            <TextFlow>
+               <children>
+                  <Text fx:id="exampleChavacano" strokeType="OUTSIDE" strokeWidth="0.0" text="Chavacano: Bienvenidos na ciudad de Zamboanga  ">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+               </children>
+            </TextFlow>
+            <TextFlow>
+               <children>
+                  <Text fx:id="exampleFilipino" strokeType="OUTSIDE" strokeWidth="0.0" text="Filipino: hahaa">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+               </children>
+            </TextFlow>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

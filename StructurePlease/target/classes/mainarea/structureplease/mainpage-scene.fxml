@@ -18,7 +18,7 @@
                <children>
                   <fx:include fx:id="wordID" source="wordpop-scene.fxml" />
                   <fx:include fx:id="translationID" source="translation-scene.fxml" />
-                  <fx:include fx:id="dictionaryID" source="dictionary-scene.fxml" />
+                  <fx:include fx:id="dictionaryID" source="dictionary-scene/dictionary-scene.fxml" />
                   <fx:include fx:id="chabaFlashID" source="chabaflash-scene.fxml" />
                </children>
             </StackPane>
