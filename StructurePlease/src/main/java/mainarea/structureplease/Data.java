@@ -94,4 +94,8 @@ public class Data {
         String detail = wordDetails.get(key);
         return detail;
     }
+
+    public Map<String, Map<String, String>> getDictionary() {
+        return dictionary;
+    }
 }
