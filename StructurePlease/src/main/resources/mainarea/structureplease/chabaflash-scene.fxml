@@ -1,16 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="768.0" prefWidth="1052.0" visible="false" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.OpeningController">
+<AnchorPane minHeight="768.0" minWidth="1052.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 2;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.ChabaFlashController">
    <children>
-      <Text layoutX="503.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CHABAFLASH" wrappingWidth="327.451171875">
+      <Text fill="#f92727" layoutX="157.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chabaflash" AnchorPane.leftAnchor="157.0" AnchorPane.topAnchor="93.0">
          <font>
-            <Font size="34.0" />
+            <Font size="48.0" />
          </font>
       </Text>
+      <AnchorPane layoutX="146.0" layoutY="193.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="778.0" style="-fx-border-color: F92727; -fx-border-radius: 28; -fx-border-width: 2;" AnchorPane.bottomAnchor="75.20000000000005" AnchorPane.leftAnchor="145.60000000000002" AnchorPane.rightAnchor="127.60000000000002" AnchorPane.topAnchor="193.0">
+         <children>
+            <VBox layoutX="29.0" layoutY="58.0" prefHeight="410.0" prefWidth="722.0" style="-fx-spacing: 0;" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="56.0">
+               <children>
+                  <StackPane prefHeight="414.0" prefWidth="718.0">
+                     <children>
+                        <AnchorPane fx:id="imageAnchor" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fx:id="funfactImgView" fitHeight="410.0" fitWidth="722.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </StackPane>
+               </children>
+            </VBox>
+            <Button fx:id="backButton" layoutX="14.0" layoutY="22.0" mnemonicParsing="false" onAction="#backFunction" style="-fx-background-color: transparent;" text="&lt;" textFill="#f92727">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="forwardButton" layoutX="717.0" layoutY="22.0" mnemonicParsing="false" onAction="#forwardFunction" style="-fx-background-color: transparent;" text="&gt;" textFill="#f92727">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <ProgressBar fx:id="chabaFlashProgressBar" layoutX="146.0" layoutY="707.0" prefHeight="18.0" prefWidth="778.0" progress="0.1" style="-fx-background-radius: 10; -fx-border-radius: 28;" />
    </children>
 </AnchorPane>
