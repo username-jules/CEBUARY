@@ -1,17 +1,17 @@
 package mainarea.structureplease.dictionaryscene;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.text.Text;
 import mainarea.structureplease.Data;
 import mainarea.structureplease.OpeningController;
-
-import java.util.List;
 
 public class DictionarySceneController {
     @FXML
     public TextField searchBar;
+    public Node listView;
+    public Node dictionaryContent;
     private String input;
     private String searchBarInput;
     private Data dictionaryData;
@@ -23,9 +23,8 @@ public class DictionarySceneController {
         listViewController = ListViewController.getInstance();
         dc = DictionaryContentController.getDictionaryContentController();
         dictionaryData = OpeningController.getOpeningController().getDictionaryData();
-        input = "Plea";
-        dc.setInput(input);
-        dc.displayDictionary();
+
+        dictionaryContent.setVisible(false);
     }
 
     public static DictionarySceneController getDictionarySceneController() {
@@ -36,11 +35,23 @@ public class DictionarySceneController {
         return dictionaryData;
     }
 
+    public Node getDictionaryContent() {
+        return dictionaryContent;
+    }
+
     public void passInput(KeyEvent keyEvent) {
+
+        if (dictionaryContent.isVisible()){
+            dictionaryContent.setVisible(false);
+            listView.setVisible(true);
+        }else {
+            listView.setVisible(true);
+        }
         searchBarInput = searchBar.getText();
-        System.out.println("this is the input from the search bar: " + searchBarInput);
+//        System.out.println("this is the input from the search bar: " + searchBarInput);
         listViewController.setKey(searchBarInput);
-        listViewController.createItems();
-        listViewController.printValues();
+        listViewController.createListViewItems();
+//        listViewController.printValues();
+        listViewController.updateListViewItems();
     }
 }

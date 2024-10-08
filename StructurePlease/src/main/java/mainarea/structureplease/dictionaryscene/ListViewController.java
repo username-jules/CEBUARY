@@ -1,6 +1,9 @@
 package mainarea.structureplease.dictionaryscene;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import mainarea.structureplease.Data;
 import mainarea.structureplease.OpeningController;
@@ -12,13 +15,36 @@ import java.util.Map;
 public class ListViewController {
     @FXML
     public ListView<String> myListView;
-    private String input;
+    public Node vBox;
+    private String input, selectedKey;
     private Data dictionaryData;
     private static ListViewController instance;
+    private DictionarySceneController mainScene;
+    private DictionaryContentController dc;
+
 
     public void initialize(){
         instance = this;
         dictionaryData = OpeningController.getOpeningController().getDictionaryData();
+
+        myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                dc = DictionaryContentController.getDictionaryContentController();
+                selectedKey = myListView.getSelectionModel().getSelectedItem();
+
+                mainScene = DictionarySceneController.getDictionarySceneController();
+                vBox.setVisible(false);
+                mainScene.getDictionaryContent().setVisible(true);
+
+
+                System.out.println("this is the input before passing: " + selectedKey);
+                dc.setInput(selectedKey);
+                dc.displayDictionary();
+
+            }
+        });
+
     }
     public void setKey(String key){
         this.input = key;
@@ -26,11 +52,11 @@ public class ListViewController {
 
 
     //creates items for the listview
-    public List<String> createItems(){
+    public ArrayList<String> createListViewItems(){
         input = input.toLowerCase();
         System.out.println(input);
         //stores the results from search (keys)
-        List<String> words = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
 
         //gets the map
         Map<String, Map<String,String>> dictionary = dictionaryData.getDictionary();
@@ -47,7 +73,7 @@ public class ListViewController {
             //if key contains input adds the key to the List
             //ex: Bienvenidos contains Bie
             if (key.toLowerCase().contains(input)){
-                words.add(key);
+                list.add(key);
             }
             else { //if key does not contain or is not equal to the input, checks for the inner map (english translation/ filipino translation)
                 //iterates through the inner map
@@ -66,9 +92,8 @@ public class ListViewController {
                     if (match && stringValue.toLowerCase().contains(",")){
                         String[] split = stringValue.split(", ");
                         for (int i = 0; i <= split.length - 1; i++){
-//                            System.out.println("this is the current split " + split[i]);
                             if (split[i].toLowerCase().startsWith(input)){
-                                words.add(key);
+                                list.add(key);
                             }
                         }
                     }
@@ -79,18 +104,18 @@ public class ListViewController {
 //                        System.out.println("this is the input: " + input);
 
                         //ads the key of the dictionary map (the original map) to the List
-                        words.add(key);
+                        list.add(key);
                     }
                 }
             }
 
         }
-        return words;
+        return list;
     }
 
     //for testing only
     public void printValues(){
-        List<String> words = createItems();
+        ArrayList<String> words = createListViewItems();
 
         for (String elements: words){
             System.out.println(elements);
@@ -107,6 +132,13 @@ public class ListViewController {
             if (key.equals(element))return true;
         }
         return false;
+    }
+
+    public void updateListViewItems(){
+        myListView.getItems().clear();
+        ArrayList<String> words = createListViewItems();
+        myListView.getItems().addAll(words);
+
     }
 
     public static ListViewController getInstance() {

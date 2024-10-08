@@ -24,8 +24,8 @@
       </TextField>
       <StackPane layoutX="145.60000610351562" layoutY="192.8000030517578" prefHeight="550.0" prefWidth="778.0" AnchorPane.bottomAnchor="75.20000000000005" AnchorPane.leftAnchor="145.60000000000002" AnchorPane.rightAnchor="127.60000000000002" AnchorPane.topAnchor="193.0">
          <children>
-            <fx:include source="dictionary-listview.fxml" />
-            <fx:include source="dictionary-content.fxml" />
+            <fx:include source="dictionary-listview.fxml" fx:id="listView" />
+            <fx:include source="dictionary-content.fxml" fx:id="dictionaryContent"/>
          </children>
       </StackPane>
    </children>

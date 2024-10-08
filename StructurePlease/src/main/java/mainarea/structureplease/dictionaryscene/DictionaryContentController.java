@@ -15,22 +15,20 @@ public class DictionaryContentController {
 
     public void initialize(){
         dictionaryContentController = this;
-        input = "Deserted";
         dictionaryData = OpeningController.getOpeningController().getDictionaryData();
-        displayDictionary();
     }
     public void displayDictionary(){
-        String key = dictionaryData.getKeyByValue(input);
+        System.out.println("the is the input that was passed: " + input);
 
-        String enun = dictionaryData.getDetails(key,"enunciation");
-        String classif = dictionaryData.getDetails(key,"classification");
-        String transEn = dictionaryData.getDetails(key,"translationEnglish");
-        String transFil = dictionaryData.getDetails(key,"translationFilipino");
-        String exampleEn = dictionaryData.getDetails(key,"exampleEnglish");
-        String exampleFil = dictionaryData.getDetails(key,"exampleFilipino");
-        String exampleChav = dictionaryData.getDetails(key,"exampleChavacano");
+        String enun = dictionaryData.getDetails(input,"enunciation");
+        String classif = dictionaryData.getDetails(input,"classification");
+        String transEn = dictionaryData.getDetails(input,"translationEnglish");
+        String transFil = dictionaryData.getDetails(input,"translationFilipino");
+        String exampleEn = dictionaryData.getDetails(input,"exampleEnglish");
+        String exampleFil = dictionaryData.getDetails(input,"exampleFilipino");
+        String exampleChav = dictionaryData.getDetails(input,"exampleChavacano");
 
-        word.setText(key);
+        word.setText(input);
         enunciation.setText(enun);
         classification.setText(classif);
         translationEnglish.setText("In English: "+ transEn);
