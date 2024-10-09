@@ -16,6 +16,7 @@ public class DictionaryContentController {
     public void initialize(){
         dictionaryContentController = this;
         dictionaryData = OpeningController.getOpeningController().getDictionaryData();
+
     }
     public void displayDictionary(){
         System.out.println("the is the input that was passed: " + input);

@@ -13,7 +13,7 @@ enunciation|ah-ban-do-NA-oh
 classification|verb, pandiwa
 alternateChavacano|Abandonado
 translationEnglish|Deserted, Forsaken
-translationFilipino|Inabandona niya ang kanyang mga anak.
+translationFilipino|Inabandona, Iniwan
 exampleEnglish|Her children were abandoned.
 exampleChavacano|Ya abandona le con el de suyo anak.
 exampleFilipino|Inabandona niya ang kanyang mga anak.
