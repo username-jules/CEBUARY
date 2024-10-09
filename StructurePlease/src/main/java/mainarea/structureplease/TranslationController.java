@@ -121,7 +121,68 @@ public class TranslationController implements Initializable {
         wordTranslate = inputWord;
         outputLanguage = chosenOutputLanguage;
 
+        Map<String, Map<String, String>> mainMap = dictionaryData.getDictionary();
 
-        return wordTranslate;
+        // Loop through the mainMap entries
+        for (Map.Entry<String, Map<String, String>> mainMapElements : mainMap.entrySet()) {
+
+            // Get the current key (e.g., 'bienvenidos')
+            mainKey = mainMapElements.getKey();
+            Map<String, String> innerMap = mainMapElements.getValue();
+            for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
+                innerKeyy = innerMapElements.getKey();
+                innerValuee = innerMapElements.getValue();
+            }
+// if chavacano ung language
+            if (wordTranslate.equals(mainKey)) {
+                switch (outputLanguage) {
+                    case "English":
+                        for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
+                            String englishTrans = innerMap.get("translationEnglish");
+                            System.out.println(englishTrans);
+                            textArea2.setText(englishTrans);
+                        }
+                        break;
+                    case "Filipino":
+                        for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
+                            String filipinoTrans = innerMap.get("translationFilipino");
+                            System.out.println(filipinoTrans);
+                            textArea2.setText(filipinoTrans);
+                        }
+                        break;
+                    case "Chavacano":
+                        for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
+                            String chavacanoTrans = innerMap.get("alternateChavacano");
+                            if (chavacanoTrans.equals("(N/A)")) {
+                                textArea2.setText(mainKey);
+                            } else textArea2.setText(chavacanoTrans);
+                        }
+                }
+// if english ung language
+
+            } else if (wordTranslate.equals(innerValuee)) {
+                System.out.println(innerValuee);
+                System.out.println(innerKeyy);
+                switch (innerKeyy){
+                    case "translationEnglish":
+                        for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
+                            String englishTrans = innerMap.get("translationEnglish");
+                            System.out.println("english trans to: " + englishTrans);
+                            textArea2.setText(englishTrans);
+                        }
+                        break;
+                    case "translationFilipino":
+                        for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
+                            String filipinoTrans = innerMap.get("translationFilipino");
+                            System.out.println("filo trans" + filipinoTrans);
+                            textArea2.setText(filipinoTrans);
+                        }
+                        break;
+                }
+            }
+
+        }
+
+        return "Translation not found";
     }
 }
