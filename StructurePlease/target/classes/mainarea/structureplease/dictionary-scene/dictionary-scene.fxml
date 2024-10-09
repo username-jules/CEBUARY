@@ -14,7 +14,7 @@
             <Font size="48.0" />
          </font>
       </Text>
-      <TextField fx:id="searchBar" layoutX="642.0" layoutY="99.0" minHeight="51.0" minWidth="340.0" onKeyReleased="#passInput" style="-fx-background-color: ffbcbc; -fx-background-radius: 50;" AnchorPane.rightAnchor="136.0">
+      <TextField fx:id="searchBar" layoutX="642.0" layoutY="99.0" minHeight="51.0" minWidth="340.0" onKeyReleased="#updateListView" style="-fx-background-color: ffbcbc; -fx-background-radius: 50;" AnchorPane.rightAnchor="136.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>

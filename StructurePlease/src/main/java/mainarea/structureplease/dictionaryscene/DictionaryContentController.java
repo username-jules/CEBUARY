@@ -1,6 +1,7 @@
 package mainarea.structureplease.dictionaryscene;
 
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import mainarea.structureplease.Data;
 import mainarea.structureplease.OpeningController;
@@ -11,6 +12,7 @@ public class DictionaryContentController {
 
     private Data dictionaryData;
     public Node mainWindow;
+    public Button returnButton;
     private OpeningController op;
     private String input;
 
@@ -52,7 +54,7 @@ public class DictionaryContentController {
 
     public void returnToListView(){
         dictionarySceneController = DictionarySceneController.getDictionarySceneController();
-        listViewController.setKey("");
+        listViewController.input("");
         listViewController.updateListViewItems();
         dictionarySceneController.getListView().setVisible(true);
         mainWindow.setVisible(false);

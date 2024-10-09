@@ -4,5 +4,28 @@
 }
 .list-view .list-cell:hover {
     -fx-background-color: #ffbcbc; /* Change background on hover */
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #ffffff;
+}
+/* Customize the scrollbar track */
+.list-view .scroll-bar:vertical .track {
+     -fx-background-color: #DCDCDC;
+     -fx-background-radius: 10px;
+}
+
+/* Customize the scrollbar thumb */
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #F92727;
+    /* Blue thumb */
+     /* Rounded thumb corners */
+}
+
+/* Change thumb hover effect */
+.list-view .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #ff9999; /* Darker blue when hovered */
+}
+
+/* Customize the scrollbar buttons */
+.list-view .scroll-bar .increment-button,
+.list-view .scroll-bar .decrement-button {
+
 }

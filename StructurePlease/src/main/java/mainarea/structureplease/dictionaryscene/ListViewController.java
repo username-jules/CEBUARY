@@ -13,7 +13,6 @@ import mainarea.structureplease.Data;
 import mainarea.structureplease.OpeningController;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class ListViewController {
@@ -25,8 +24,6 @@ public class ListViewController {
     private static ListViewController instance;
     private DictionarySceneController mainScene;
     private DictionaryContentController dc;
-    private final String[] targetKeys  = {"translationEnglish", "translationFilipino"};
-
 
     public void initialize(){
         instance = this;
@@ -81,9 +78,10 @@ public class ListViewController {
         });
 
     }
-    public void setKey(String key){
+    public void input(String key){
         this.input = key;
     }
+
     //creates items for the listview
     public ArrayList<DictionaryEntry> createListViewItems(){
         input = input.toLowerCase();
@@ -117,14 +115,8 @@ public class ListViewController {
                     //gets the current value of the inner map
                     String innerMapValue = innerElements.getValue();
 
-                    //gets the current key of the inner map
-                    String innerMapKey = innerElements.getKey();
-
-                    //check isMatch method below
-                    //if innerKey matches the 'translationEnglish', 'translationFilipino'
-                    boolean match = isMatch(innerMapKey, targetKeys);
                     //for checking only
-                    if (match && innerMapValue.toLowerCase().contains(",")){
+                    if (innerMapValue.toLowerCase().contains(",")){
                         String[] split = innerMapValue.split(", ");
                         for (int i = 0; i <= split.length - 1; i++){
                             if (split[i].toLowerCase().startsWith(input)){
@@ -135,11 +127,7 @@ public class ListViewController {
                         }
                     }
                     // Check if 'match' is true and if 'stringValue' contains or equals the 'input'
-                    else if (match && innerMapValue.toLowerCase().startsWith(input)|| innerMapValue.toLowerCase().equals(input)){
-
-//                        System.out.println("this is the string value: "+ stringValue);
-//                        System.out.println("this is the input: " + input);
-
+                    else if (innerMapValue.toLowerCase().startsWith(input)|| innerMapValue.toLowerCase().equals(input)){
                         //ads the key of the dictionary map (the original map) to the List
                         String translationEnglish = innerMap.get("translationEnglish");
                         String translationFilipino = innerMap.get("translationFilipino");
@@ -150,19 +138,6 @@ public class ListViewController {
 
         }
         return list;
-    }
-
-    //for testing only
-
-    //if the current key matches the target keys to be iterated the map
-    public boolean isMatch(String key, String[]array){
-
-        //iterates through the targetKeys list
-        for (String element: array){
-            //if the current key of the inner map (innerKey) is
-            if (key.equals(element))return true;
-        }
-        return false;
     }
 
     public void updateListViewItems() {

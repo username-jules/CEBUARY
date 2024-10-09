@@ -19,6 +19,7 @@ public class DictionarySceneController {
     private static DictionarySceneController dictionarySceneController;
     private static DictionaryContentController dc;
     private ListViewController listViewController;
+
     public void initialize(){
         dictionarySceneController = this;
         listViewController = ListViewController.getInstance();
@@ -45,8 +46,7 @@ public class DictionarySceneController {
         return listView;
     }
 
-    public void passInput(KeyEvent keyEvent) {
-
+    public void updateListView(KeyEvent keyEvent) {
         if (keyEvent.isControlDown() && keyEvent.getCharacter().equalsIgnoreCase("s")) {
             System.out.println("Ctrl+S pressed. Save function triggered.");
             keyEvent.consume(); // Consume the event to prevent further processing if needed
@@ -64,8 +64,8 @@ public class DictionarySceneController {
             listView.setVisible(true);
         }
         searchBarInput = searchBar.getText();
-        System.out.println("this is the input from the search bar: " + searchBarInput);
-        listViewController.setKey(searchBarInput);
+//        System.out.println("this is the input from the search bar: " + searchBarInput);
+        listViewController.input(searchBarInput);
         listViewController.createListViewItems();
 //        listViewController.printValues();
         listViewController.updateListViewItems();
