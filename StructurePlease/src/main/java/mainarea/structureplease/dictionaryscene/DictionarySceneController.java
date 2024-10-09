@@ -11,6 +11,7 @@ public class DictionarySceneController {
     @FXML
     public TextField searchBar;
     public Node listView;
+    public Node vBox;
     public Node dictionaryContent;
     private String input;
     private String searchBarInput;
@@ -25,6 +26,7 @@ public class DictionarySceneController {
         dictionaryData = OpeningController.getOpeningController().getDictionaryData();
 
         dictionaryContent.setVisible(false);
+        listViewController.updateListViewItems();
     }
 
     public static DictionarySceneController getDictionarySceneController() {
@@ -37,6 +39,10 @@ public class DictionarySceneController {
 
     public Node getDictionaryContent() {
         return dictionaryContent;
+    }
+
+    public Node getListView() {
+        return listView;
     }
 
     public void passInput(KeyEvent keyEvent) {

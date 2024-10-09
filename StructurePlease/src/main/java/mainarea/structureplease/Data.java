@@ -98,4 +98,35 @@ public class Data {
     public Map<String, Map<String, String>> getDictionary() {
         return dictionary;
     }
+
+    public static void main(String[] args) {
+        Data dictionaryData = new Data();
+        dictionaryData.loadDictionary("/data/dictionary.txt");
+
+        //store yung map para di magulo
+        Map<String, Map<String, String>> mainMap = dictionaryData.getDictionary();
+
+        //for each loop
+        for (Map.Entry<String, Map<String, String>> mainMapElements: mainMap.entrySet()){
+
+            //gets current key ex: 'bienvenidos'
+            String key = mainMapElements.getKey();
+
+            //creates a map equal to value ng key per loop kasi nga map din value
+            Map<String, String> innerMap = mainMapElements.getValue();
+
+            for (Map.Entry<String, String> innerMapElements: innerMap.entrySet()){
+
+                //gets current key ex: 'translationEnglish'
+                String innerKey = innerMapElements.getKey();
+
+                //gets current value ng inner map ex: Greetings, Salutations
+                String innerValue = innerMapElements.getValue();
+            }
+
+
+
+
+        }
+    }
 }

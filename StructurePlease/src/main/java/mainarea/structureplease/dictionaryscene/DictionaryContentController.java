@@ -1,5 +1,6 @@
 package mainarea.structureplease.dictionaryscene;
 
+import javafx.scene.Node;
 import javafx.scene.text.Text;
 import mainarea.structureplease.Data;
 import mainarea.structureplease.OpeningController;
@@ -9,13 +10,19 @@ public class DictionaryContentController {
             translationFilipino, exampleEnglish, exampleFilipino, exampleChavacano, exampleSentences;
 
     private Data dictionaryData;
+    public Node mainWindow;
     private OpeningController op;
     private String input;
+
     private static DictionaryContentController dictionaryContentController;
+    private DictionarySceneController dictionarySceneController;
+    private ListViewController listViewController;
 
     public void initialize(){
         dictionaryContentController = this;
         dictionaryData = OpeningController.getOpeningController().getDictionaryData();
+        listViewController = ListViewController.getInstance();
+
 
     }
     public void displayDictionary(){
@@ -42,6 +49,15 @@ public class DictionaryContentController {
     public void setInput(String input){
         this.input = input;
     }
+
+    public void returnToListView(){
+        dictionarySceneController = DictionarySceneController.getDictionarySceneController();
+        listViewController.setKey("");
+        listViewController.updateListViewItems();
+        dictionarySceneController.getListView().setVisible(true);
+        mainWindow.setVisible(false);
+    }
+
 
     public static DictionaryContentController getDictionaryContentController() {
         return dictionaryContentController;

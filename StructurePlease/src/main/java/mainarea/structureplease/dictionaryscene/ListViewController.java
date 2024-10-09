@@ -31,6 +31,7 @@ public class ListViewController {
     public void initialize(){
         instance = this;
         dictionaryData = OpeningController.getOpeningController().getDictionaryData();
+        input = "";
 
         myListView.setCellFactory(param -> new ListCell<DictionaryEntry>() {
             private final VBox vbox = new VBox(5); // VBox with spacing between labels
@@ -91,16 +92,16 @@ public class ListViewController {
         ArrayList<DictionaryEntry> list = new ArrayList<>();
 
         //gets the map
-        Map<String, Map<String,String>> dictionary = dictionaryData.getDictionary();
+        Map<String, Map<String,String>> map = dictionaryData.getDictionary();
 
         //iterates through the dictionary map
-        for (Map.Entry<String , Map<String, String>> entry: dictionary.entrySet()){
+        for (Map.Entry<String , Map<String, String>> mapElements: map.entrySet()){
 
             //takes the map within the dictionary map (inner map)
-            Map<String, String> innerMap = entry.getValue();
+            Map<String, String> innerMap = mapElements.getValue();
 
             //takes the current key of the dictionary map
-            String key = entry.getKey();
+            String key = mapElements.getKey();
 
             //if key contains input adds the key to the List
             //ex: Bienvenidos contains Bie
@@ -111,20 +112,20 @@ public class ListViewController {
             }
             else { //if key does not contain or is not equal to the input, checks for the inner map (english translation/ filipino translation)
                 //iterates through the inner map
-                for (Map.Entry<String, String> innerEntry: innerMap.entrySet()){
+                for (Map.Entry<String, String> innerElements: innerMap.entrySet()){
 
                     //gets the current value of the inner map
-                    String stringValue = innerEntry.getValue();
+                    String innerMapValue = innerElements.getValue();
 
                     //gets the current key of the inner map
-                    String innerKey = innerEntry.getKey();
+                    String innerMapKey = innerElements.getKey();
 
                     //check isMatch method below
                     //if innerKey matches the 'translationEnglish', 'translationFilipino'
-                    boolean match = isMatch(innerKey, targetKeys);
+                    boolean match = isMatch(innerMapKey, targetKeys);
                     //for checking only
-                    if (match && stringValue.toLowerCase().contains(",")){
-                        String[] split = stringValue.split(", ");
+                    if (match && innerMapValue.toLowerCase().contains(",")){
+                        String[] split = innerMapValue.split(", ");
                         for (int i = 0; i <= split.length - 1; i++){
                             if (split[i].toLowerCase().startsWith(input)){
                                 String translationEnglish = innerMap.get("translationEnglish");
@@ -134,7 +135,7 @@ public class ListViewController {
                         }
                     }
                     // Check if 'match' is true and if 'stringValue' contains or equals the 'input'
-                    else if (match && stringValue.toLowerCase().startsWith(input)|| stringValue.toLowerCase().equals(input)){
+                    else if (match && innerMapValue.toLowerCase().startsWith(input)|| innerMapValue.toLowerCase().equals(input)){
 
 //                        System.out.println("this is the string value: "+ stringValue);
 //                        System.out.println("this is the input: " + input);
@@ -164,12 +165,10 @@ public class ListViewController {
         return false;
     }
 
-    public void updateListViewItems(){
+    public void updateListViewItems() {
         myListView.getItems().clear();
         ArrayList<DictionaryEntry> words = createListViewItems();
         myListView.getItems().addAll(words);
-
-
 
     }
 
