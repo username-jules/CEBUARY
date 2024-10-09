@@ -23,7 +23,8 @@ public class TranslationController implements Initializable {
 
     private Data dictionaryData;
     private String chosenInputLanguage, chosenOutputLanguage, inputWord;
-    private String mainKey;
+    private String mainKey, innerKeyy, innerValuee;
+    private Map<String, String> innerMap;
     private String[] choiceBoxLanguages = {"Filipino", "English", "Chavacano"};
 
     @Override
@@ -39,11 +40,12 @@ public class TranslationController implements Initializable {
 
         // Add listeners for choiceBox selections
         choiceBox1.setOnAction(this::translateWord);
-        choiceBox2.setOnAction(this::translateWord);
+//        choiceBox2.setOnAction(this::translateWord);
 
         // Add key release listener for automatic translation in textArea1
         textArea1.setOnKeyReleased(event -> translateWord(null));
     }
+
 
     // Method to handle translation logic
     public void translateWord(ActionEvent event) {
@@ -57,7 +59,8 @@ public class TranslationController implements Initializable {
         chosenInputLanguage = choiceBox1.getValue();
         chosenOutputLanguage = choiceBox2.getValue();
 
-        String translatingWord = identifyTheLanguage(inputWord, chosenInputLanguage);
+        identifyTheLanguage(inputWord, chosenInputLanguage);
+        translatingTheWords(inputWord, chosenOutputLanguage);
 
     }
 
@@ -80,26 +83,45 @@ public class TranslationController implements Initializable {
                 choiceBox1.setValue("Chavacano");
 
                 // Stop searching once the word is found
-
+                return mainKey;
 
             } else if (!word.equals(mainKey)) {
-                Map<String, String> innerMap = mainMapElements.getValue();
+                innerMap = mainMapElements.getValue();
                 // Iterate through the innerMap to find the translation based on input language
                 for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
                     String innerKey = innerMapElements.getKey();
                     String innerValue = innerMapElements.getValue();
 
-                    if (word.equals(innerValue)){
-                        System.out.println(innerValue);
-                        System.out.println(innerKey);
+                    if (word.equals(innerValue)) {
+                        System.out.println("this is the inner value " + innerValue);
+                        System.out.println("this is the inner key " + innerKey);
+
+                        switch (innerKey) {
+                            case "translationFilipino":
+                                choiceBox1.setValue("Filipino");
+                                break;
+                            case "translationEnglish":
+                                choiceBox1.setValue("English");
+                                break;
+                            case "alternateChavacano":
+                                choiceBox1.setValue("Chavacano");
+                                break;
+                        }
+
+                        return innerValue;
                     }
                 }
             }
-
-            // If no match is found, return null or a default message
-            System.out.println("Word not found");
-            return null;
         }
-        return word;
+        System.out.println("Word not found");
+        return "Translation not found";
+    }
+
+    private String translatingTheWords(String wordTranslate, String outputLanguage) {
+        wordTranslate = inputWord;
+        outputLanguage = chosenOutputLanguage;
+
+
+        return wordTranslate;
     }
 }
