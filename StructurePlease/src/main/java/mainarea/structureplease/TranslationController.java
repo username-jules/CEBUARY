@@ -75,12 +75,12 @@ public class TranslationController implements Initializable {
 
             // Get the current key (e.g., 'bienvenidos')
             mainKey = mainMapElements.getKey();
-            System.out.println("Checking word: " + mainKey);
+//            System.out.println("Checking word: " + mainKey);
 
             // Check if the word matches the mainKey
             if (word.equals(mainKey)) {
-                System.out.println("Word found: " + mainKey);
-                choiceBox1.setValue("Chavacano");
+//                System.out.println("Word found: " + mainKey);
+//                choiceBox1.setValue("Chavacano");
 
                 // Stop searching once the word is found
                 return mainKey;
@@ -93,8 +93,8 @@ public class TranslationController implements Initializable {
                     String innerValue = innerMapElements.getValue();
 
                     if (word.equals(innerValue)) {
-                        System.out.println("this is the inner value " + innerValue);
-                        System.out.println("this is the inner key " + innerKey);
+//                        System.out.println("this is the inner value " + innerValue);
+//                        System.out.println("this is the inner key " + innerKey);
 
                         switch (innerKey) {
                             case "translationFilipino":
@@ -132,7 +132,28 @@ public class TranslationController implements Initializable {
             for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
                 innerKeyy = innerMapElements.getKey();
                 innerValuee = innerMapElements.getValue();
+
+                if (wordTranslate.equals(innerValuee)) {
+                    System.out.println(innerValuee);
+                    System.out.println(innerKeyy);
+                    System.out.println("THIS IS THE INNER KEY!!!!!" + innerKeyy);
+                    System.out.println("THIS IS THE INNER VALUE!!!!!" + innerValuee);
+                    switch (innerKeyy){
+                        case "translationEnglish":
+                            String englishTrans = innerMap.get("translationFilipino");
+                            System.out.println("english trans to: " + englishTrans);
+                            textArea2.setText(englishTrans);
+                            break;
+                        case "translationFilipino":
+                            String filipinoTrans = innerMap.get("translationEnglish");
+                            System.out.println("filo trans" + filipinoTrans);
+                            textArea2.setText(filipinoTrans);
+                            break;  
+                    }
+                }
             }
+
+
 // if chavacano ung language
             if (wordTranslate.equals(mainKey)) {
                 switch (outputLanguage) {
@@ -160,25 +181,6 @@ public class TranslationController implements Initializable {
                 }
 // if english ung language
 
-            } else if (wordTranslate.equals(innerValuee)) {
-                System.out.println(innerValuee);
-                System.out.println(innerKeyy);
-                switch (innerKeyy){
-                    case "translationEnglish":
-                        for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
-                            String englishTrans = innerMap.get("translationEnglish");
-                            System.out.println("english trans to: " + englishTrans);
-                            textArea2.setText(englishTrans);
-                        }
-                        break;
-                    case "translationFilipino":
-                        for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
-                            String filipinoTrans = innerMap.get("translationFilipino");
-                            System.out.println("filo trans" + filipinoTrans);
-                            textArea2.setText(filipinoTrans);
-                        }
-                        break;
-                }
             }
 
         }
