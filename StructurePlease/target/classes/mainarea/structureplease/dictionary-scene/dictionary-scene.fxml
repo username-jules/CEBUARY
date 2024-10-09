@@ -14,7 +14,7 @@
             <Font size="48.0" />
          </font>
       </Text>
-      <TextField fx:id="searchBar" layoutX="642.0" layoutY="99.0" minHeight="51.0" minWidth="340.0" onKeyTyped="#passInput" style="-fx-background-color: ffbcbc; -fx-background-radius: 50;" AnchorPane.rightAnchor="136.0">
+      <TextField fx:id="searchBar" layoutX="642.0" layoutY="99.0" minHeight="51.0" minWidth="340.0" onKeyReleased="#passInput" style="-fx-background-color: ffbcbc; -fx-background-radius: 50;" AnchorPane.rightAnchor="136.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -24,8 +24,8 @@
       </TextField>
       <StackPane layoutX="145.60000610351562" layoutY="192.8000030517578" prefHeight="550.0" prefWidth="778.0" AnchorPane.bottomAnchor="75.20000000000005" AnchorPane.leftAnchor="145.60000000000002" AnchorPane.rightAnchor="127.60000000000002" AnchorPane.topAnchor="193.0">
          <children>
-            <fx:include source="dictionary-listview.fxml" fx:id="listView" />
-            <fx:include source="dictionary-content.fxml" fx:id="dictionaryContent"/>
+            <fx:include fx:id="listView" source="dictionary-listview.fxml" />
+            <fx:include fx:id="dictionaryContent" source="dictionary-content.fxml" />
          </children>
       </StackPane>
    </children>

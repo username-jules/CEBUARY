@@ -1,0 +1,8 @@
+/* style.css */
+.list-view {
+    -fx-background-color: #f0f0f0; /* Set background color */
+}
+.list-view .list-cell:hover {
+    -fx-background-color: #ffbcbc; /* Change background on hover */
+    -fx-text-fill: #FFFFFF;
+}
