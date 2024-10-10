@@ -49,8 +49,8 @@ public class TranslationController implements Initializable {
 
     // Method to handle translation logic
     public void translateWord(ActionEvent event) {
-        inputWord = textArea1.getText();
-        outputWord = textArea2.getText();
+        inputWord = textArea1.getText().toLowerCase();
+        outputWord = textArea2.getText().toLowerCase();
 
         if (inputWord.isEmpty()) {
             textArea2.clear();
@@ -74,7 +74,7 @@ public class TranslationController implements Initializable {
         for (Map.Entry<String, Map<String, String>> mainMapElements : mainMap.entrySet()) {
 
             // Get the current key (e.g., 'bienvenidos')
-            mainKey = mainMapElements.getKey();
+            mainKey = mainMapElements.getKey().toLowerCase();
 //            System.out.println("Checking word: " + mainKey);
 
             // Check if the word matches the mainKey
@@ -90,11 +90,11 @@ public class TranslationController implements Initializable {
                 // Iterate through the innerMap to find the translation based on input language
                 for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
                     String innerKey = innerMapElements.getKey();
-                    String innerValue = innerMapElements.getValue();
+                    String innerValue = innerMapElements.getValue().toLowerCase();
 
-                    if (word.equals(innerValue)) {
-//                        System.out.println("this is the inner value " + innerValue);
-//                        System.out.println("this is the inner key " + innerKey);
+                    boolean isMatch = isMatch(innerValue,inputWord, innerKey);
+
+                    if (word.equals(innerValue) || isMatch) {
 
                         switch (innerKey) {
                             case "translationFilipino":
@@ -127,7 +127,7 @@ public class TranslationController implements Initializable {
                 innerMap = mainMapElements.getValue();
                 for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
                     String innerKey = innerMapElements.getKey();
-                    String innerValue = innerMapElements.getValue();
+                    String innerValue = innerMapElements.getValue().toLowerCase();
 
                     if (wordOutput.equals(innerValue)) {
 
@@ -162,18 +162,21 @@ public class TranslationController implements Initializable {
         for (Map.Entry<String, Map<String, String>> mainMapElements : mainMap.entrySet()) {
 
             // Get the current key (e.g., 'bienvenidos')
-            mainKey = mainMapElements.getKey();
+            mainKey = mainMapElements.getKey().toLowerCase();
             Map<String, String> innerMap = mainMapElements.getValue();
 
             for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
                 innerKeyy = innerMapElements.getKey();
-                innerValuee = innerMapElements.getValue();
+                innerValuee = innerMapElements.getValue().toLowerCase();
 
                 if (wordTranslate.equals(innerValuee)) {
                     switch (innerKeyy){
                         case "translationEnglish":
                             if (chosenOutputLanguage.equals("Filipino")){
                                 String filipinoTrans = innerMap.get("translationFilipino");
+                                if (innerValuee.toLowerCase().contains(",")) {
+                                    isMatch(innerValuee,wordTranslate,innerKeyy);
+                                } else
                                 textArea2.setText(filipinoTrans);
                             }
                             else if (chosenOutputLanguage.equals("Chavacano")) {
@@ -201,6 +204,12 @@ public class TranslationController implements Initializable {
                 }
             }
 
+            if (innerValuee.contains(",")){
+                boolean match = isMatch(innerValuee, wordTranslate,innerKeyy);
+                if (match) {
+                    chavacanoTranslation(wordTranslate);
+                }
+            }
 
 // if chavacano ung language
             if (wordTranslate.equals(mainKey)) {
@@ -233,5 +242,50 @@ public class TranslationController implements Initializable {
         }
 
         return "Translation not found";
+    }
+
+
+    private boolean isMatch(String innerMapValue, String input, String key){
+        String[] split = innerMapValue.split(", ");
+        String translations = "";
+
+        for (int i = 0; i <= split.length - 1; i++){
+            if (split[i].toLowerCase().startsWith(input)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void chavacanoTranslation(String wordTranslate){
+        switch (innerKeyy){
+            case "translationEnglish":
+                if (chosenOutputLanguage.equals("Filipino")){
+                    String filipinoTrans = innerMap.get("translationFilipino");
+                    textArea2.setText(filipinoTrans);
+                }
+                else if (chosenOutputLanguage.equals("Chavacano")) {
+                    String chavacanoTrans = innerMap.get("alternateChavacano");
+                    if(chavacanoTrans.equals("(N/A)") || chavacanoTrans.equals("N/A")) {
+                        textArea2.setText(mainKey);
+                    } else
+                        textArea2.setText(chavacanoTrans);
+                } else textArea2.setText(wordTranslate);
+
+                break;
+            case "translationFilipino":
+                if (chosenOutputLanguage.equals("English")){
+                    String englishTrans = innerMap.get("translationEnglish");
+                    textArea2.setText(englishTrans);
+                }
+                else if (chosenOutputLanguage.equals("Chavacano")) {
+                    String chavacanoTrans = innerMap.get("alternateChavacano");
+                    if(chavacanoTrans.equals("(N/A)") || chavacanoTrans.equals("N/A")) {
+                        textArea2.setText(mainKey);
+                    } else
+                        textArea2.setText(chavacanoTrans);
+                } else textArea2.setText(wordTranslate);
+        }
     }
 }
