@@ -58,6 +58,7 @@ public class OpeningController {
 
         chavacaKnowText.setFont(chavacaknow);
         continueButton.setFont(texts);
+        addButtonDesign(continueButton);
         unlock.setFont(texts);
 
     }
@@ -71,5 +72,12 @@ public class OpeningController {
 
     public Data getDictionaryData() {
         return dictionaryData;
+    }
+
+    private void addButtonDesign(Button buttonDesign) {
+        buttonDesign.setOnMouseEntered(event -> buttonDesign.setStyle("-fx-background-color: #860606; -fx-background-radius: 5em;"));
+        buttonDesign.setOnMouseExited(event -> buttonDesign.setStyle("-fx-background-color:  #E02929; -fx-background-radius: 5em;"));
+        buttonDesign.setOnMousePressed(event -> buttonDesign.setStyle("-fx-background-color: #860606; -fx-background-radius: 5em;"));
+        buttonDesign.setOnMouseReleased(event -> buttonDesign.setStyle("-fx-background-color: #860606; -fx-background-radius: 5em;"));
     }
 }

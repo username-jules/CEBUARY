@@ -29,15 +29,18 @@ public class TranslationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Font headerText = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 48);
+
         translatorText.setFont(headerText);
 
         dictionaryData = OpeningController.getOpeningController().getDictionaryData();
 
         // Set up choiceBox values
         choiceBox1.getItems().addAll(choiceBoxLanguages);
+        addCheckBoxDesign(choiceBox1);
         choiceBox1.setValue("Chavacano");
 
         choiceBox2.getItems().addAll(choiceBoxLanguages);
+        addCheckBoxDesign(choiceBox2);
         choiceBox2.setValue("English");
 
         // Add listeners for choiceBox selections
@@ -51,6 +54,7 @@ public class TranslationController implements Initializable {
 
     // Method to handle translation logic
     public void translateWord(ActionEvent event) {
+
         inputWord = textArea1.getText().toLowerCase();
         outputWord = textArea2.getText().toLowerCase();
 
@@ -143,11 +147,12 @@ public class TranslationController implements Initializable {
         return "Translation not found";
     }
 
-    private String translatingTheWords(String wordTranslate, String outputLanguage) {
-        wordTranslate = inputWord;
+    private void translatingTheWords(String words, String outputLanguage) {
+        words = inputWord;
         outputLanguage = chosenOutputLanguage;
 
         Map<String, Map<String, String>> mainMap = dictionaryData.getDictionary();
+        boolean isFound = false;
 
         // Loop through the mainMap entries
         for (Map.Entry<String, Map<String, String>> mainMapElements : mainMap.entrySet()) {
@@ -157,47 +162,68 @@ public class TranslationController implements Initializable {
             mainKey = mainK.toLowerCase();
             Map<String, String> innerMap = mainMapElements.getValue();
 
-            for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
-                innerKey = innerMapElements.getKey();
-                innerVal = innerMapElements.getValue();
-                innerValue = innerVal.toLowerCase();
+            if (!isFound){
+                for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
+                    innerKey = innerMapElements.getKey();
+                    innerVal = innerMapElements.getValue();
+                    innerValue = innerVal.toLowerCase();
 
-                if (wordTranslate.equals(innerValue)) {
-                    switch (innerKey){
-                        case "translationEnglish":
-                            if (chosenOutputLanguage.equals("Filipino")){
-                                String filipinoTrans = innerMap.get("translationFilipino");
-                                textArea2.setText(filipinoTrans);
-                            } else if (chosenOutputLanguage.equals("Chavacano")) {
-                                textArea2.setText(mainK);
 
-                            } else textArea2.setText(innerVal);
-
-                            break;
-                        case "translationFilipino":
-                            if (chosenOutputLanguage.equals("English")){
-                                String englishTrans = innerMap.get("translationEnglish");
-                                textArea2.setText(englishTrans);
-                            }
-                            else if (chosenOutputLanguage.equals("Chavacano")) {
+                    if (words.equals(innerValue)) {
+                        System.out.println("working1");
+                        switch (innerKey){
+                            // basically if it connects to english then it will automatically translate tagalog
+                            case "translationEnglish":
+                                // and this is the choicebox area to just specify if the chosen if filipino then it will print the filipino
+                                // translation of that word
+                                if (chosenOutputLanguage.equals("Filipino")){
+                                    System.out.println("working2");
+                                    String filipinoTrans = innerMap.get("translationFilipino");
+                                    textArea2.setText(filipinoTrans);
+                                    // else if the choicebox is specified with chavacano then it should just print the mainK
+                                    // mainK = chavacano automatically
+                                } else if (chosenOutputLanguage.equals("Chavacano")) {
                                     textArea2.setText(mainK);
-                            } else textArea2.setText(innerVal);
+                                }
+                                // else, kung english to english it should just print the inner value
+                                else textArea2.setText(innerVal);
+                                isFound = true;
+                                System.out.println(isFound);
+                                break;
+                            case "translationFilipino":
+                                if (chosenOutputLanguage.equals("English")){
+                                    System.out.println("working3");
+                                    String englishTrans = innerMap.get("translationEnglish");
+                                    textArea2.setText(englishTrans);
+                                } else if (chosenOutputLanguage.equals("Chavacano")) {
+                                    textArea2.setText(mainK);
+                                } else textArea2.setText(innerVal);
+                                isFound = true;
+                                System.out.println(isFound);
+                                break;
+                        }
                     }
+                    else {
+                        System.out.println(isFound);
+                        textArea2.setText("haha");
+                    }
+
                 }
             }
 
             if (innerValue.contains(",")){
-                boolean match = isMatch(innerValue, wordTranslate);
+                boolean match = isMatch(innerValue, words);
                 if (match) {
                     chavacanoTranslation();
                 }
             }
 
 // if chavacano ung language
-            if (wordTranslate.equals(mainKey)) {
+            if (words.equals(mainKey)) {
                 switch (outputLanguage) {
                     case "English":
                         for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
+                            System.out.println("working4");
                             String englishTrans = innerMap.get("translationEnglish");
                             System.out.println(englishTrans);
                             textArea2.setText(englishTrans);
@@ -205,6 +231,7 @@ public class TranslationController implements Initializable {
                         break;
                     case "Filipino":
                         for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
+                            System.out.println("working5");
                             String filipinoTrans = innerMap.get("translationFilipino");
                             System.out.println(filipinoTrans);
                             textArea2.setText(filipinoTrans);
@@ -212,16 +239,12 @@ public class TranslationController implements Initializable {
                         break;
                     case "Chavacano":
                         for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
+                            System.out.println("working6");
                                 textArea2.setText(mainK);
-                            }
                         }
                 }
-
             }
-
-
-
-        return "Translation not found";
+        }
     }
 
 
@@ -259,4 +282,18 @@ public class TranslationController implements Initializable {
                 } else textArea2.setText(mainK);
         }
     }
+
+    private void addCheckBoxDesign(ChoiceBox<String> choiceBoxDesign) {
+        // Set style for the ChoiceBox itself
+        choiceBoxDesign.setStyle(
+                "-fx-background-color: #FFFFFF;" +  // White background for visibility and interaction
+                        "-fx-font-family: 'MADE Carving Bold';" +  // Correct font family
+                        "-fx-font-size: 15px;" +  // Font size
+                        "-fx-padding: 5;" +  // Padding for text spacing
+                        "-fx-arrow-size: 14;"  // Size of the dropdown arrow
+        );
+    }
+
+
+
 }

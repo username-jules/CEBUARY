@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 
 import java.io.IOException;
@@ -29,13 +30,14 @@ public class MainPageController {
 
     public void initialize(){
         openingController = OpeningController.getOpeningController();
-        fontInitializer2();
+        Font chavitoFont = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 38);
 
-        addHoverEffect(wordPopButton);
-        addHoverEffect(dictionaryButton);
-        addHoverEffect(translationButton);
-        addHoverEffect(chabaFlashButton);
-        addHoverEffect(chavitoButton);
+        addButtonDesign(wordPopButton);
+        addButtonDesign(dictionaryButton);
+        addButtonDesign(translationButton);
+        addButtonDesign(chabaFlashButton);
+        addButtonDesign(chavitoButton);
+        chavitoButton.setFont(chavitoFont);
     }
 
     public void switchToOpening(ActionEvent event) throws IOException {
@@ -96,23 +98,14 @@ public class MainPageController {
 //        wordPopButton.setBackground(Background.fill(Color.web("#F92727")));
 //    }
 
-    public void fontInitializer2() {
+    private void addButtonDesign(Button buttonDesign) {
         Font buttonFonts = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 28);
-        Font chavitoFont = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 38);
-
-        chavitoButton.setFont(chavitoFont);
-        wordPopButton.setFont(buttonFonts);
-        dictionaryButton.setFont(buttonFonts);
-        translationButton.setFont(buttonFonts);
-        chabaFlashButton.setFont(buttonFonts);
-
+        buttonDesign.setFont(buttonFonts);
+        buttonDesign.setOnMouseEntered(event -> buttonDesign.setStyle("-fx-background-color: #FDBCBC; -fx-background-radius: 40; -fx-text-fill: black;"));
+        buttonDesign.setOnMouseExited(event -> buttonDesign.setStyle("-fx-background-color: transparent; -fx-background-radius: 40; -fx-text-fill: black;"));
+        buttonDesign.setOnMousePressed(event -> buttonDesign.setStyle("-fx-background-color: #FDBCBC; -fx-background-radius: 40; -fx-text-fill: black;"));
+        buttonDesign.setOnMouseReleased(event -> buttonDesign.setStyle("-fx-background-color: #FDBCBC; -fx-background-radius: 40; -fx-text-fill: black;"));
     }
 
-    private void addHoverEffect(Button button) {
-        button.setOnMouseEntered(event -> button.setOpacity(0.7)); // Lighter opacity on hover
-        button.setOnMouseExited(event -> button.setOpacity(1.0)); // Reset opacity when mouse exits
-        button.setOnMousePressed(event -> button.setOpacity(0.5)); // Darker opacity on click
-        button.setOnMouseReleased(event -> button.setOpacity(0.7)); // Restore hover opacity when released
-    }
 
 }

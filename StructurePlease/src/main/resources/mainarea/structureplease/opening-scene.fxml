@@ -19,7 +19,7 @@
             <Font size="64.0" />
          </font>
       </Text>
-      <ImageView fitHeight="206.0" fitWidth="192.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/chabiNormal.png" />
          </image>
