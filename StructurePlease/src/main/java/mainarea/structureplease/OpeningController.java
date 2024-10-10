@@ -54,11 +54,11 @@ public class OpeningController {
 
     public void fontIntializer1(){
         Font texts = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Regular.otf").toExternalForm(), 32);
-        Font chavacaknow = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 62);
+        Font chavacaknow = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 52);
 
-//        chavacaKnowText.setFont(chavacaknow);
-//        continueButton.setFont(texts);
-//        unlock.setFont(texts);
+        chavacaKnowText.setFont(chavacaknow);
+        continueButton.setFont(texts);
+        unlock.setFont(texts);
 
     }
 

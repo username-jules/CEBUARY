@@ -10,7 +10,7 @@
 
 <AnchorPane minHeight="768.0" minWidth="1052.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.TranslationController">
    <children>
-      <Text fill="#f92727" layoutX="157.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Translator" AnchorPane.leftAnchor="157.0" AnchorPane.topAnchor="93.0">
+      <Text fx:id="translatorText" fill="#f92727" layoutX="157.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Word Translator" AnchorPane.leftAnchor="157.0" AnchorPane.topAnchor="93.0">
          <font>
             <Font size="48.0" />
          </font>

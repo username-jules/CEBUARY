@@ -30,6 +30,12 @@ public class MainPageController {
     public void initialize(){
         openingController = OpeningController.getOpeningController();
         fontInitializer2();
+
+        addHoverEffect(wordPopButton);
+        addHoverEffect(dictionaryButton);
+        addHoverEffect(translationButton);
+        addHoverEffect(chabaFlashButton);
+        addHoverEffect(chavitoButton);
     }
 
     public void switchToOpening(ActionEvent event) throws IOException {
@@ -91,7 +97,7 @@ public class MainPageController {
 //    }
 
     public void fontInitializer2() {
-        Font buttonFonts = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Regular.otf").toExternalForm(), 32);
+        Font buttonFonts = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 28);
         Font chavitoFont = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 38);
 
         chavitoButton.setFont(chavitoFont);
@@ -100,7 +106,13 @@ public class MainPageController {
         translationButton.setFont(buttonFonts);
         chabaFlashButton.setFont(buttonFonts);
 
+    }
 
+    private void addHoverEffect(Button button) {
+        button.setOnMouseEntered(event -> button.setOpacity(0.7)); // Lighter opacity on hover
+        button.setOnMouseExited(event -> button.setOpacity(1.0)); // Reset opacity when mouse exits
+        button.setOnMousePressed(event -> button.setOpacity(0.5)); // Darker opacity on click
+        button.setOnMouseReleased(event -> button.setOpacity(0.7)); // Restore hover opacity when released
     }
 
 }

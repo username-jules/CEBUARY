@@ -32,7 +32,7 @@
                <children>
                   <AnchorPane prefHeight="774.0" prefWidth="314.0" style="-fx-background-color: #FFFFFF; -fx-border-color: F92727; -fx-border-radius: 0 28 28 0; -fx-border-width: 2;">
                      <children>
-                        <Button fx:id="chavitoButton" layoutX="81.0" layoutY="29.0" mnemonicParsing="false" onAction="#switchToOpening" prefHeight="84.0" prefWidth="221.0" style="-fx-background-color: transparent;" text="CHAVITO" AnchorPane.leftAnchor="81.0">
+                        <Button fx:id="chavitoButton" layoutX="81.0" layoutY="29.0" mnemonicParsing="false" onAction="#switchToOpening" prefHeight="84.0" prefWidth="221.0" style="-fx-background-color: transparent;" text="Chavito" AnchorPane.leftAnchor="81.0">
                            <font>
                               <Font size="40.0" />
                            </font>

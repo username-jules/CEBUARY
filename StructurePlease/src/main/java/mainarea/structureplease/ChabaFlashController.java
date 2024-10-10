@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,10 +18,14 @@ public class ChabaFlashController implements Initializable {
 
     // PROGRESS BAR
     @FXML private ProgressBar chabaFlashProgressBar;
+
+    @FXML private Text chabaflashText;
     private double progress = 0.1;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Font headerText = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 48);
+        chabaflashText.setFont(headerText);
         ffImagesInitializer();
         insertingImages();
         chabaFlashProgressBar.setStyle("-fx-accent: red;");
@@ -29,7 +35,8 @@ public class ChabaFlashController implements Initializable {
     private List<Image> imageList =new ArrayList<>();
     private int currentIndex = 0;
     @FXML public ImageView funfactImgView;
-    private Image funfact1, funfact2, funfact3, funfact4,funfact5,funfact6,funfact7,funfact8,funfact9,funfact10;
+    public ImageView chabiStandingIMGView;
+    private Image funfact1, funfact2, funfact3, funfact4,funfact5,funfact6,funfact7,funfact8,funfact9,funfact10, chaviImg;
 
     public void insertingImages(){
         imageList.add(funfact1);
@@ -71,6 +78,9 @@ public class ChabaFlashController implements Initializable {
     }
 
     public void ffImagesInitializer() {
+        chaviImg = new Image(getClass().getResourceAsStream("/images/chabiStand.png"));
+        chabiStandingIMGView.setImage(chaviImg);
+
         funfact1 = new Image(getClass().getResourceAsStream("/FFimg/FunFact10.png"));
         funfact2 = new Image(getClass().getResourceAsStream("/FFimg/FunFact2.png"));
         funfact3 = new Image(getClass().getResourceAsStream("/FFimg/FunFact3.png"));

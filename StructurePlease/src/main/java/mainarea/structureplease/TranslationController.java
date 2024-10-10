@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.Map;
@@ -12,23 +14,23 @@ import java.util.ResourceBundle;
 
 public class TranslationController implements Initializable {
 
-    @FXML
-    private ChoiceBox<String> choiceBox1;
-    @FXML
-    private ChoiceBox<String> choiceBox2;
-    @FXML
-    private TextArea textArea1;
-    @FXML
-    private TextArea textArea2;
+    @FXML private ChoiceBox<String> choiceBox1;
+    @FXML private ChoiceBox<String> choiceBox2;
+    @FXML private TextArea textArea1;
+    @FXML private TextArea textArea2;
 
+    @FXML private Text translatorText;
     private Data dictionaryData;
     private String chosenInputLanguage, chosenOutputLanguage, inputWord, outputWord;
-    private String mainKey, innerKeyy, innerValuee;
+    private String mainKey, mainK, innerKey, innerValue, innerVal;
     private Map<String, String> innerMap;
     private String[] choiceBoxLanguages = {"Filipino", "English", "Chavacano"};
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Font headerText = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 48);
+        translatorText.setFont(headerText);
+
         dictionaryData = OpeningController.getOpeningController().getDictionaryData();
 
         // Set up choiceBox values
@@ -73,13 +75,9 @@ public class TranslationController implements Initializable {
         // Loop through the mainMap entries
         for (Map.Entry<String, Map<String, String>> mainMapElements : mainMap.entrySet()) {
 
-            // Get the current key (e.g., 'bienvenidos')
             mainKey = mainMapElements.getKey().toLowerCase();
-//            System.out.println("Checking word: " + mainKey);
 
-            // Check if the word matches the mainKey
             if (word.equals(mainKey)) {
-//                System.out.println("Word found: " + mainKey);
                 choiceBox1.setValue("Chavacano");
 
                 // Stop searching once the word is found
@@ -89,13 +87,13 @@ public class TranslationController implements Initializable {
                 innerMap = mainMapElements.getValue();
                 // Iterate through the innerMap to find the translation based on input language
                 for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
-                    String innerKey = innerMapElements.getKey();
-                    String innerValue = innerMapElements.getValue().toLowerCase();
+                    innerKey = innerMapElements.getKey();
+                    innerValue = innerMapElements.getValue().toLowerCase();
 
-                    boolean isMatch = isMatch(innerValue,inputWord, innerKey);
+                    // Checking it matches regardless of the ","
+                    boolean isMatch = isMatch(innerValue,inputWord);
 
                     if (word.equals(innerValue) || isMatch) {
-
                         switch (innerKey) {
                             case "translationFilipino":
                                 choiceBox1.setValue("Filipino");
@@ -103,11 +101,7 @@ public class TranslationController implements Initializable {
                             case "translationEnglish":
                                 choiceBox1.setValue("English");
                                 break;
-                            case "alternateChavacano":
-                                choiceBox1.setValue("Chavacano");
-                                break;
                         }
-
                         return innerValue;
                     }
                 }
@@ -126,8 +120,8 @@ public class TranslationController implements Initializable {
             } else if (!wordOutput.equals(mainKey)) {
                 innerMap = mainMapElements.getValue();
                 for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
-                    String innerKey = innerMapElements.getKey();
-                    String innerValue = innerMapElements.getValue().toLowerCase();
+                    innerKey = innerMapElements.getKey();
+                    innerValue = innerMapElements.getValue().toLowerCase();
 
                     if (wordOutput.equals(innerValue)) {
 
@@ -137,9 +131,6 @@ public class TranslationController implements Initializable {
                                 break;
                             case "translationEnglish":
                                 choiceBox1.setValue("English");
-                                break;
-                            case "alternateChavacano":
-                                choiceBox1.setValue("Chavacano");
                                 break;
                         }
 
@@ -162,30 +153,25 @@ public class TranslationController implements Initializable {
         for (Map.Entry<String, Map<String, String>> mainMapElements : mainMap.entrySet()) {
 
             // Get the current key (e.g., 'bienvenidos')
-            mainKey = mainMapElements.getKey().toLowerCase();
+            mainK = mainMapElements.getKey();
+            mainKey = mainK.toLowerCase();
             Map<String, String> innerMap = mainMapElements.getValue();
 
             for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
-                innerKeyy = innerMapElements.getKey();
-                innerValuee = innerMapElements.getValue().toLowerCase();
+                innerKey = innerMapElements.getKey();
+                innerVal = innerMapElements.getValue();
+                innerValue = innerVal.toLowerCase();
 
-                if (wordTranslate.equals(innerValuee)) {
-                    switch (innerKeyy){
+                if (wordTranslate.equals(innerValue)) {
+                    switch (innerKey){
                         case "translationEnglish":
                             if (chosenOutputLanguage.equals("Filipino")){
                                 String filipinoTrans = innerMap.get("translationFilipino");
-                                if (innerValuee.toLowerCase().contains(",")) {
-                                    isMatch(innerValuee,wordTranslate,innerKeyy);
-                                } else
                                 textArea2.setText(filipinoTrans);
-                            }
-                            else if (chosenOutputLanguage.equals("Chavacano")) {
-                                String chavacanoTrans = innerMap.get("alternateChavacano");
-                                    if(chavacanoTrans.equals("(N/A)") || chavacanoTrans.equals("N/A")) {
-                                        textArea2.setText(mainKey);
-                                    } else
-                                        textArea2.setText(chavacanoTrans);
-                            } else textArea2.setText(wordTranslate);
+                            } else if (chosenOutputLanguage.equals("Chavacano")) {
+                                textArea2.setText(mainK);
+
+                            } else textArea2.setText(innerVal);
 
                             break;
                         case "translationFilipino":
@@ -194,20 +180,16 @@ public class TranslationController implements Initializable {
                                 textArea2.setText(englishTrans);
                             }
                             else if (chosenOutputLanguage.equals("Chavacano")) {
-                                String chavacanoTrans = innerMap.get("alternateChavacano");
-                                if(chavacanoTrans.equals("(N/A)") || chavacanoTrans.equals("N/A")) {
-                                    textArea2.setText(mainKey);
-                                } else
-                                    textArea2.setText(chavacanoTrans);
-                            } else textArea2.setText(wordTranslate);
+                                    textArea2.setText(mainK);
+                            } else textArea2.setText(innerVal);
                     }
                 }
             }
 
-            if (innerValuee.contains(",")){
-                boolean match = isMatch(innerValuee, wordTranslate,innerKeyy);
+            if (innerValue.contains(",")){
+                boolean match = isMatch(innerValue, wordTranslate);
                 if (match) {
-                    chavacanoTranslation(wordTranslate);
+                    chavacanoTranslation();
                 }
             }
 
@@ -230,24 +212,21 @@ public class TranslationController implements Initializable {
                         break;
                     case "Chavacano":
                         for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
-                            String chavacanoTrans = innerMap.get("alternateChavacano");
-                            if (chavacanoTrans.equals("(N/A)") || chavacanoTrans.equals("N/A")) {
-                                textArea2.setText(mainKey);
-                            } else textArea2.setText(chavacanoTrans);
+                                textArea2.setText(mainK);
+                            }
                         }
                 }
 
             }
 
-        }
+
 
         return "Translation not found";
     }
 
 
-    private boolean isMatch(String innerMapValue, String input, String key){
+    private boolean isMatch(String innerMapValue, String input){
         String[] split = innerMapValue.split(", ");
-        String translations = "";
 
         for (int i = 0; i <= split.length - 1; i++){
             if (split[i].toLowerCase().startsWith(input)){
@@ -258,20 +237,16 @@ public class TranslationController implements Initializable {
         return false;
     }
 
-    private void chavacanoTranslation(String wordTranslate){
-        switch (innerKeyy){
+    private void chavacanoTranslation(){
+        switch (innerKey){
             case "translationEnglish":
                 if (chosenOutputLanguage.equals("Filipino")){
                     String filipinoTrans = innerMap.get("translationFilipino");
                     textArea2.setText(filipinoTrans);
                 }
                 else if (chosenOutputLanguage.equals("Chavacano")) {
-                    String chavacanoTrans = innerMap.get("alternateChavacano");
-                    if(chavacanoTrans.equals("(N/A)") || chavacanoTrans.equals("N/A")) {
-                        textArea2.setText(mainKey);
-                    } else
-                        textArea2.setText(chavacanoTrans);
-                } else textArea2.setText(wordTranslate);
+                        textArea2.setText(mainK);
+                } else textArea2.setText(mainK);
 
                 break;
             case "translationFilipino":
@@ -280,12 +255,8 @@ public class TranslationController implements Initializable {
                     textArea2.setText(englishTrans);
                 }
                 else if (chosenOutputLanguage.equals("Chavacano")) {
-                    String chavacanoTrans = innerMap.get("alternateChavacano");
-                    if(chavacanoTrans.equals("(N/A)") || chavacanoTrans.equals("N/A")) {
-                        textArea2.setText(mainKey);
-                    } else
-                        textArea2.setText(chavacanoTrans);
-                } else textArea2.setText(wordTranslate);
+                        textArea2.setText(mainK);
+                } else textArea2.setText(mainK);
         }
     }
 }
