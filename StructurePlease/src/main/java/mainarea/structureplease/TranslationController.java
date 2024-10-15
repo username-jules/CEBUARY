@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 import java.net.URL;
+import java.util.IllegalFormatCodePointException;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -71,7 +72,7 @@ public class TranslationController implements Initializable {
 
     }
 
-    private String identifyTheLanguage(String word, String wordOutput) {
+    private void identifyTheLanguage(String word, String wordOutput) {
         word = inputWord;
         wordOutput = outputWord;
 
@@ -86,7 +87,6 @@ public class TranslationController implements Initializable {
                 choiceBox1.setValue("Chavacano");
 
                 // Stop searching once the word is found
-                return mainKey;
 
             } else if (!word.equals(mainKey)) {
                 innerMap = mainMapElements.getValue();
@@ -107,7 +107,6 @@ public class TranslationController implements Initializable {
                                 choiceBox1.setValue("English");
                                 break;
                         }
-                        return innerValue;
                     }
                 }
             }
@@ -119,8 +118,6 @@ public class TranslationController implements Initializable {
 
             if (wordOutput.equals(mainKey)) {
                 choiceBox1.setValue("Chavacano");
-
-                return mainKey;
 
             } else if (!wordOutput.equals(mainKey)) {
                 innerMap = mainMapElements.getValue();
@@ -139,13 +136,11 @@ public class TranslationController implements Initializable {
                                 break;
                         }
 
-                        return innerValue;
                     }
                 }
             }
         }
 
-        return "Translation not found";
     }
 
     private void translatingTheWords(String words, String outputLanguage) {
@@ -161,102 +156,104 @@ public class TranslationController implements Initializable {
             // Get the current key (e.g., 'bienvenidos')
             mainK = mainMapElements.getKey();
             mainKey = mainK.toLowerCase();
+
+            //the inner hashmap
             Map<String, String> innerMap = mainMapElements.getValue();
 
-            for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
-                innerKey = innerMapElements.getKey();
-                innerVal = innerMapElements.getValue();
-                innerValue = innerVal.toLowerCase();
+            //if a match is not found, run the condition
+            if (!isFound){
+                //if the input is equal to the main key
+                if (words.equals(mainKey)) {
+                    switch (outputLanguage) {
+                        case "English":
+                            String englishTrans = innerMap.get("translationEnglish");
+                            textArea2.setText(englishTrans);
+                            break;
+                        case "Filipino":
+                            String filipinoTrans = innerMap.get("translationFilipino");
+                            textArea2.setText(filipinoTrans);
+                            break;
+                        case "Chavacano":
+                            textArea2.setText(mainK);
+                            break;
+                    }
+                    //match found, ends the loop
+                    isFound = true;
+                }
 
-                if (!isFound){
-                    if (words.equals(innerValue)) {
-                        System.out.println("working1");
-                        switch (innerKey){
-                            // basically if it connects to english then it will automatically translate tagalog
-                            case "translationEnglish":
-                                // and this is the choicebox area to just specify if the chosen if filipino then it will print the filipino
-                                // translation of that word
-                                if (chosenOutputLanguage.equals("Filipino")){
-                                    System.out.println("working2");
-                                    String filipinoTrans = innerMap.get("translationFilipino");
-                                    textArea2.setText(filipinoTrans);
-                                    // else if the choicebox is specified with chavacano then it should just print the mainK
-                                    // mainK = chavacano automatically
-                                } else if (chosenOutputLanguage.equals("Chavacano")) {
-                                    textArea2.setText(mainK);
+                //if the input is not equals to the main key, run the condition
+                if (!words.equals(mainKey)){
+                    //iterate throught the inner hashmap
+                    for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
+                        innerKey = innerMapElements.getKey();
+                        innerVal = innerMapElements.getValue();
+                        innerValue = innerVal.toLowerCase();
+
+                        //if there is no found match, run the condition
+                        if (!isFound) {
+
+                            //if the input is equal to the innervalue
+                            if (words.equals(innerValue)) {
+
+                                //the key of the current inner value
+                                switch (innerKey) {
+                                    // basically if it connects to english then it will automatically translate tagalog
+                                    case "translationEnglish":
+                                        // and this is the choicebox area to just specify if the chosen if filipino then it will print the filipino
+                                        // translation of that word
+                                        if (chosenOutputLanguage.equals("Filipino")) {
+                                            String filipinoTrans = innerMap.get("translationFilipino");
+                                            textArea2.setText(filipinoTrans);
+                                            // else if the choicebox is specified with chavacano then it should just print the mainK
+                                            // mainK = chavacano automatically
+                                        } else if (chosenOutputLanguage.equals("Chavacano")) {
+                                            textArea2.setText(mainK);
+                                        }
+                                        // else, kung english to english it should just print the inner value
+                                        else textArea2.setText(innerVal);
+                                        isFound = true;
+                                        break;
+                                    case "translationFilipino":
+                                        if (chosenOutputLanguage.equals("English")) {
+                                            String englishTrans = innerMap.get("translationEnglish");
+                                            textArea2.setText(englishTrans);
+                                        } else if (chosenOutputLanguage.equals("Chavacano")) {
+                                            textArea2.setText(mainK);
+                                        } else textArea2.setText(innerVal);
+                                        isFound = true;
+                                        break;
                                 }
-                                // else, kung english to english it should just print the inner value
-                                else textArea2.setText(innerVal);
-                                isFound = true;
-                                System.out.println(isFound);
-                                break;
-                            case "translationFilipino":
-                                System.out.println("NAHANAP ANG FILIPINO");
-                                if (chosenOutputLanguage.equals("English")){
-                                    System.out.println("working3");
-                                    String englishTrans = innerMap.get("translationEnglish");
-                                    textArea2.setText(englishTrans);
-                                } else if (chosenOutputLanguage.equals("Chavacano")) {
-                                    textArea2.setText(mainK);
-                                } else textArea2.setText(innerVal);
-                                isFound = true;
-                                System.out.println(isFound);
-                                break;
-                        }
-                    }
-                    else if (innerValue.contains(",")){
-                        System.out.println("THERE IS A COMMA");
-                        System.out.println("THIS IS THE CURRENT INNER VALUE" + innerValue);
-                        boolean match = isMatch(innerValue, words);
-                        if (match) {
-                            chavacanoTranslation();
-                            textArea2.setText(innerValue);
-                            isFound = true;
+                                //if the inner value has a comma, separates the values, and
+                                // checks if the word is equal to one of those values
+                            } else if (innerValue.contains(",")) {
+                                boolean match = isMatch(innerValue, words);
+                                if (match) {
+                                    chavacanoTranslation();
+                                    textArea2.setText(innerValue);
+                                    isFound = true;
 
-                            if (outputLanguage.equals("English")){
-                                String translation = innerMap.get("translationEnglish");
-                                textArea2.setText(translation);
-                            }
-                            else if (outputLanguage.equals("Filipino")){
-                                String translation = innerMap.get("translationFilipino");
-                                textArea2.setText(translation);
-                            }
-                            else {
-                                String translation = mainK;
-                                textArea2.setText(translation);
+                                    if (outputLanguage.equals("English")) {
+                                        String translation = innerMap.get("translationEnglish");
+                                        textArea2.setText(translation);
+                                    } else if (outputLanguage.equals("Filipino")) {
+                                        String translation = innerMap.get("translationFilipino");
+                                        textArea2.setText(translation);
+                                    } else {
+                                        String translation = mainK;
+                                        textArea2.setText(translation);
+                                    }
+                                }
+                                //if there are no matches
+                            } else {
+                                textArea2.setText(" ");
                             }
                         }
-                    }
-                    else {
-                        System.out.println(isFound);
-                        textArea2.setText("haha");
+
+
                     }
                 }
-
-
             }
-
-// if chavacano ung language
-            if (words.equals(mainKey))
-                switch (outputLanguage) {
-                    case "English":
-                        System.out.println("working4");
-                        String englishTrans = innerMap.get("translationEnglish");
-                        System.out.println(englishTrans);
-                        textArea2.setText(englishTrans);
-                        break;
-                    case "Filipino":
-                        System.out.println("working5");
-                        String filipinoTrans = innerMap.get("translationFilipino");
-                        System.out.println(filipinoTrans);
-                        textArea2.setText(filipinoTrans);
-                        break;
-                    case "Chavacano":
-                        System.out.println("working6");
-                        textArea2.setText(mainK);
-                        break;
-                }
-            }
+        }
     }
 
 
@@ -264,7 +261,7 @@ public class TranslationController implements Initializable {
         String[] split = innerMapValue.split(", ");
 
         for (int i = 0; i <= split.length - 1; i++){
-            if (split[i].toLowerCase().startsWith(input)){
+            if (split[i].toLowerCase().equals(input)){
                 return true;
             }
         }

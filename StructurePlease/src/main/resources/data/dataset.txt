@@ -1,0 +1,12 @@
+classification|pronunciation|transEng|transFil|exFil|exEng|exCha
+Bienvenidos|noun|bee-en-veh-NEE-dos|Greetings,Salutations|Maligayang Pagdating|Maligayang pagdating sa lungsod ng Zamboanga.|Welcome to Zamboanga City.|Bienvenidos na ciudad de Zamboanga.
+Abandonao|noun|ah-ban-do-NA-oh|Abandon,Deserted|Abandonado|Inabandona niya ang kanyang mga anak.|She abandoned her children.|Ya abandoao le con el de suyo anak.
+Suplica|noun|su-PLI-ka|Lodging,Plea,Address|Tirahan,Pakiusap|Pakiusap, kausapin mo ang mga tao.|Please address the crowd.|Por favor suplica con el maga gente.
+Pedazo|noun|pe-DA-zo|Fragment,Portion|Bahagi,Piraso|Pakiusap, bigyan mo ako ng piraso ng karne na iyon.|Please, give me a piece of that meat.|Por favor, dale conmigo un pedazo de ese carne.
+Prohibi|noun|pro-HEE-bee|Forbid,Ban|Bawal|Ipinagbabawal ang pagtatapon ng basura dito.|Throwing trash is prohibited here.|Prohibido el butada de basura aqui.
+Feliz Compleaños|noun|fe-LIZ kom-ple-AH-nyos|Happy Birthday|Maligayang Kaarawan|Maligayang kaarawan aking kaibigan!|Happy birthday my friend!|Feliz Compleaños mi amigo!
+Hermano|noun|er-MA-no|Sibling,Brother|Kapatid,Kuya|Nag-aaral ang aking kapatid.|My brother is studying.|Mi hermano ta estudia.
+Entretene|noun|en-tre-TE-ne|Entertain|Aliwin|Inaaliw niya ang kan’yang kapatid|He’s/She’s entertaining his/her younger sister.| Ta hace ele entretene su hermana menor.
+Donde|noun|don-de|Where|Asan|Nasaan ang lola ko?|Where is my grandmother?|Donde mi abuela?
+Abuela|noun|a-BWE-la|Grandmother|Lola|Nasaan ang lola ko?|Where is my grandmother?|Donde mi abuela?
+Escusa|noun|es-KU-sa|Excuse|Dahilan|Napakasimple nang inatas sa kan’ya, pero palagi siyang may dahilan upang hindi ito gawin.|What was asked for him was very simple, yet he always has excuses to not do it.| Simple lang el cosa ya manda hace pero tiene pa gato firme escusa pera hinde hace.

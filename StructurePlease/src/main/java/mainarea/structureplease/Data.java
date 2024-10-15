@@ -18,8 +18,7 @@ public class Data {
     //translationFilipino
     //translationEnglish
     //classification
-    private Map<String, Map<String, String>> dictionary;
-
+    private HashMap<String, Map<String, String>> dictionary;
     public Data(){
         dictionary = new HashMap<>();
     }
