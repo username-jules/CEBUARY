@@ -25,12 +25,8 @@ public class OpeningController {
     public Text unlock;
 
     private static OpeningController openingController;
-    private Data dictionaryData;
-
     //parang constructor siya
     public void initialize(){
-        dictionaryData = new Data();
-        dictionaryData.loadDictionary("/data/dictionary.txt");
 
         openingController = this;
         fontIntializer1();
@@ -70,9 +66,6 @@ public class OpeningController {
 
     }
 
-    public Data getDictionaryData() {
-        return dictionaryData;
-    }
 
     private void addButtonDesign(Button buttonDesign) {
         buttonDesign.setOnMouseEntered(event -> buttonDesign.setStyle("-fx-background-color: #860606; -fx-background-radius: 5em;"));

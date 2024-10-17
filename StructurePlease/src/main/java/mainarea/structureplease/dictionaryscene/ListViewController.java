@@ -9,10 +9,10 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import mainarea.structureplease.Data;
-import mainarea.structureplease.OpeningController;
+import mainarea.structureplease.dictionaryloader.LoadDictionary;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ListViewController {
@@ -20,14 +20,14 @@ public class ListViewController {
     public ListView<DictionaryEntry> myListView;
     public Node vBox;
     private String input, selectedKey;
-    private Data dictionaryData;
+    private LoadDictionary dictionary;
     private static ListViewController instance;
     private DictionarySceneController mainScene;
     private DictionaryContentController dc;
 
     public void initialize(){
         instance = this;
-        dictionaryData = OpeningController.getOpeningController().getDictionaryData();
+        dictionary = new LoadDictionary();
         input = "";
 
         myListView.setCellFactory(param -> new ListCell<DictionaryEntry>() {
@@ -90,10 +90,10 @@ public class ListViewController {
         ArrayList<DictionaryEntry> list = new ArrayList<>();
 
         //gets the map
-        Map<String, Map<String,String>> map = dictionaryData.getDictionary();
+        Map<String, HashMap<String,String>> map = dictionary.getDictionary();
 
         //iterates through the dictionary map
-        for (Map.Entry<String , Map<String, String>> mapElements: map.entrySet()){
+        for (Map.Entry<String , HashMap<String, String>> mapElements: map.entrySet()){
 
             //takes the map within the dictionary map (inner map)
             Map<String, String> innerMap = mapElements.getValue();
@@ -104,9 +104,7 @@ public class ListViewController {
             //if key contains input adds the key to the List
             //ex: Bienvenidos contains Bie
             if (key.toLowerCase().contains(input)){
-                String translationEnglish = innerMap.get("translationEnglish");
-                String translationFilipino = innerMap.get("translationFilipino");
-                list.add(new DictionaryEntry(key, translationEnglish, translationFilipino));
+                listViewEntry(key, list);
             }
             else { //if key does not contain or is not equal to the input, checks for the inner map (english translation/ filipino translation)
                 //iterates through the inner map
@@ -120,18 +118,14 @@ public class ListViewController {
                         String[] split = innerMapValue.split(", ");
                         for (int i = 0; i <= split.length - 1; i++){
                             if (split[i].toLowerCase().startsWith(input)){
-                                String translationEnglish = innerMap.get("translationEnglish");
-                                String translationFilipino = innerMap.get("translationFilipino");
-                                list.add(new DictionaryEntry(key, translationEnglish, translationFilipino));
+                                listViewEntry(key, list);
                             }
                         }
                     }
                     // Check if 'match' is true and if 'stringValue' contains or equals the 'input'
                     else if (innerMapValue.toLowerCase().startsWith(input)|| innerMapValue.toLowerCase().equals(input)){
                         //ads the key of the dictionary map (the original map) to the List
-                        String translationEnglish = innerMap.get("translationEnglish");
-                        String translationFilipino = innerMap.get("translationFilipino");
-                        list.add(new DictionaryEntry(key, translationEnglish, translationFilipino));
+                       listViewEntry(key, list);
                     }
                 }
             }
@@ -140,6 +134,11 @@ public class ListViewController {
         return list;
     }
 
+    private void listViewEntry(String key, ArrayList<DictionaryEntry> list){
+        String translationEnglish = dictionary.getTransEng(key);
+        String translationFilipino = dictionary.getTransFil(key);
+        list.add(new DictionaryEntry(key, translationEnglish, translationFilipino));
+    }
     public void updateListViewItems() {
         myListView.getItems().clear();
         ArrayList<DictionaryEntry> words = createListViewItems();

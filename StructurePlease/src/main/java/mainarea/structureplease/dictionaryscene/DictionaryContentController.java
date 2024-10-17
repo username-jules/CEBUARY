@@ -3,7 +3,6 @@ package mainarea.structureplease.dictionaryscene;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
-import mainarea.structureplease.Data;
 import mainarea.structureplease.OpeningController;
 import mainarea.structureplease.dictionaryloader.LoadDictionary;
 
@@ -11,7 +10,6 @@ public class DictionaryContentController {
     public Text word, enunciation, classification, translationEnglish,
             translationFilipino, exampleEnglish, exampleFilipino, exampleChavacano, exampleSentences;
 
-    private Data dictionaryData;
     public Node mainWindow;
     public Button returnButton;
     private String input;
@@ -24,7 +22,6 @@ public class DictionaryContentController {
 
     public void initialize(){
         dictionaryContentController = this;
-        dictionaryData = OpeningController.getOpeningController().getDictionaryData();
         dictionary = new LoadDictionary();
         listViewController = ListViewController.getInstance();
 

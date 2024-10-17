@@ -2,10 +2,10 @@ package mainarea.structureplease.dictionaryloader;
 import java.util.HashMap;
 
 public class LoadDictionary {
-    private DataTest data;
+    private Data data;
     private HashMap<String, HashMap<String, String>> dictionary;
     public LoadDictionary(){
-        data = new DataTest("/data/dataset.txt");
+        data = new Data("/data/dataset.txt");
         dictionary = data.getData();
     }
 
@@ -46,5 +46,9 @@ public class LoadDictionary {
         HashMap<String, String> innerHashMap = dictionary.get(key);
 
         return innerHashMap.get("exCha");
+    }
+
+    public HashMap<String, HashMap<String, String>> getDictionary() {
+        return dictionary;
     }
 }

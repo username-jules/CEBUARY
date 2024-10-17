@@ -6,10 +6,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
-public class DataTest {
+public class Data {
     private HashMap<String, HashMap<String , String >> data;
 
-    public DataTest(String filePath){
+    public Data(String filePath){
         data = createHashMap(filePath);
     }
     //creates and returns a hashmap

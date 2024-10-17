@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import mainarea.structureplease.Data;
 import mainarea.structureplease.OpeningController;
 
 public class DictionarySceneController {
@@ -15,7 +14,6 @@ public class DictionarySceneController {
     public Node dictionaryContent;
     private String input;
     private String searchBarInput;
-    private Data dictionaryData;
     private static DictionarySceneController dictionarySceneController;
     private static DictionaryContentController dc;
     private ListViewController listViewController;
@@ -24,7 +22,6 @@ public class DictionarySceneController {
         dictionarySceneController = this;
         listViewController = ListViewController.getInstance();
         dc = DictionaryContentController.getDictionaryContentController();
-        dictionaryData = OpeningController.getOpeningController().getDictionaryData();
 
         dictionaryContent.setVisible(false);
         listViewController.updateListViewItems();
@@ -34,9 +31,6 @@ public class DictionarySceneController {
         return dictionarySceneController;
     }
 
-    public Data getDictionaryData() {
-        return dictionaryData;
-    }
 
     public Node getDictionaryContent() {
         return dictionaryContent;
