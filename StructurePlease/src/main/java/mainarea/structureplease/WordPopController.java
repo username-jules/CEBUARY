@@ -1,6 +1,8 @@
 package mainarea.structureplease;
 
+import javafx.fxml.FXML;
 import javafx.scene.text.Text;
+import mainarea.structureplease.dictionaryloader.DATA2;
 import mainarea.structureplease.dictionaryloader.LoadDictionary;
 
 import java.io.*;
@@ -12,27 +14,16 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class WordPopController {
-    public Text word, enunciation, classification, translationEnglish,
-            translationFilipino, exampleEnglish, exampleFilipino, exampleChavacano, exampleSentences;
+    @FXML
+    public Text word, definition;
     private int count;
-    private LoadDictionary dictionary;
+    private DATA2 dictionary;
     private String[]keys;
     private String key = "";
 
-    public WordPopController(){
-        dictionary = new LoadDictionary();
-        Path projectDirectory = Paths.get("").toAbsolutePath();
-        String fileName = "word-of-the-day.txt";
-        Path filePath = projectDirectory.resolve(fileName);
-        createAndWriteFile(filePath);
-        processFile(filePath);
-
-        System.out.println(key);
-
-    }
 
     public void initialize(){
-        dictionary = new LoadDictionary();
+        dictionary = new DATA2("/data/content.txt");
         Path projectDirectory = Paths.get("").toAbsolutePath();
         String fileName = "word-of-the-day.txt";
         Path filePath = projectDirectory.resolve(fileName);
@@ -41,25 +32,11 @@ public class WordPopController {
 
         displayDictionary();
     }
-public void displayDictionary(){
+    public void displayDictionary(){
+            word.setText(key);
+            definition.setText(dictionary.getDictionary().get(key));
 
-    String enun = dictionary.getPronunciation(key);
-    String classif = dictionary.getClassification(key);
-    String transEn = dictionary.getTransEng(key);
-    String transFil = dictionary.getTransFil(key);
-    String exampleEn = dictionary.getExEng(key);
-    String exampleFil = dictionary.getExFil(key);
-    String exampleChav = dictionary.getExCha(key);
-
-    word.setText(key);
-    enunciation.setText(enun);
-    classification.setText(classif);
-    translationEnglish.setText("In English: "+ transEn);
-    translationFilipino.setText("In Filipino: " +transFil);
-    exampleEnglish.setText("English: "+ exampleEn);
-    exampleFilipino.setText("Filipino: " + exampleFil);
-    exampleChavacano.setText("Chavacano: " + exampleChav);
-}
+    }
 
     private void processFile(Path filePath){
         LocalDate currentDate = LocalDate.now();
@@ -125,7 +102,7 @@ public void displayDictionary(){
         }
     }
     private String[] getKeys() {
-        HashMap<String, HashMap<String, String>> dictionaryMap = dictionary.getDictionary();
+        HashMap<String, String> dictionaryMap = dictionary.getDictionary();
         Set<String> set = dictionaryMap.keySet();
         String []array = set.toArray(new String[0]);
         return array;

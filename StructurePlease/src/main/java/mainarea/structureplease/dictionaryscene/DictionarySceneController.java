@@ -1,5 +1,6 @@
 package mainarea.structureplease.dictionaryscene;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
@@ -40,16 +41,7 @@ public class DictionarySceneController {
         return listView;
     }
 
-    public void updateListView(KeyEvent keyEvent) {
-        if (keyEvent.isControlDown() && keyEvent.getCharacter().equalsIgnoreCase("s")) {
-            System.out.println("Ctrl+S pressed. Save function triggered.");
-            keyEvent.consume(); // Consume the event to prevent further processing if needed
-            return; // Exit the method after handling Ctrl+S
-        } else if (keyEvent.isControlDown() && keyEvent.getCharacter().equalsIgnoreCase("z")) {
-            System.out.println("Ctrl+Z pressed. Undo function triggered.");
-            keyEvent.consume();
-            return; // Exit the method after handling Ctrl+Z
-        }
+    public void updateListView(ActionEvent actionEvent) {
 
         if (dictionaryContent.isVisible()){
             dictionaryContent.setVisible(false);

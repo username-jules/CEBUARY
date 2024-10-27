@@ -8,11 +8,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import mainarea.structureplease.dictionaryloader.LoadDictionary;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 import java.net.URL;
 import java.util.HashMap;
-import java.util.IllegalFormatCodePointException;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -22,289 +20,122 @@ public class TranslationController implements Initializable {
     @FXML private ChoiceBox<String> choiceBox2;
     @FXML private TextArea textArea1;
     @FXML private TextArea textArea2;
-
     @FXML private Text translatorText;
+
     private LoadDictionary dictionary;
-    private String chosenInputLanguage, chosenOutputLanguage, inputWord, outputWord;
-    private String mainKey, mainK, innerKey, innerValue, innerVal;
-    private Map<String, String> innerMap;
-    private String[] choiceBoxLanguages = {"Filipino", "English", "Chavacano"};
+    private String chosenOutputLanguage;
+    private String inputWord;
+    private static final String[] choiceBoxLanguages = {"Filipino", "English", "Chavacano"};
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Font headerText = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 48);
-
         translatorText.setFont(headerText);
-
         dictionary = new LoadDictionary();
 
-        // Set up choiceBox values
-        choiceBox1.getItems().addAll(choiceBoxLanguages);
-        addCheckBoxDesign(choiceBox1);
-        choiceBox1.setValue("Chavacano");
+        // Initialize choice boxes
+        setupChoiceBox(choiceBox1, "Filipino");
+        setupChoiceBox(choiceBox2, "Chavacano");
 
-        choiceBox2.getItems().addAll(choiceBoxLanguages);
-        addCheckBoxDesign(choiceBox2);
-        choiceBox2.setValue("English");
-
-        // Add listeners for choiceBox selections
-        choiceBox1.setOnAction(this::translateWord);
-
-        // Add key release listener for automatic translation in textArea1
-        textArea1.setOnKeyReleased(event -> translateWord(null));
-        choiceBox2.setOnAction(event -> translateWord(null));
+        // Add listeners for choiceBox selections and text area input
+        choiceBox1.setOnAction(this::processWord);
+        textArea1.setOnKeyReleased(event -> processWord(null));
+        choiceBox2.setOnAction(event -> processWord(null));
     }
 
+    private void setupChoiceBox(ChoiceBox<String> choiceBox, String defaultValue) {
+        choiceBox.getItems().addAll(choiceBoxLanguages);
+        choiceBox.setValue(defaultValue);
+        addCheckBoxDesign(choiceBox);
+    }
 
-    // Method to handle translation logic
-    public void translateWord(ActionEvent event) {
-
-        inputWord = textArea1.getText().toLowerCase();
-        outputWord = textArea2.getText().toLowerCase();
+    public void processWord(ActionEvent event) {
+        inputWord = textArea1.getText().toLowerCase().trim();
+        chosenOutputLanguage = choiceBox2.getValue();
 
         if (inputWord.isEmpty()) {
             textArea2.clear();
             return;
         }
-        chosenInputLanguage = choiceBox1.getValue();
-        chosenOutputLanguage = choiceBox2.getValue();
 
-        identifyTheLanguage(inputWord, outputWord);
-        translatingTheWords(inputWord, chosenOutputLanguage);
-
+        // Identify the language of the input and output words
+        identifyLanguage(inputWord, choiceBox1);
+        translateInput(inputWord, chosenOutputLanguage);
     }
 
-    private void identifyTheLanguage(String word, String wordOutput) {
-        word = inputWord;
-        wordOutput = outputWord;
+    private void identifyLanguage(String word, ChoiceBox<String> choiceBox) {
+        dictionary.getDictionary().forEach((key, value) -> {
+            String mainKeyLowerCase = key.toLowerCase();
 
-        Map<String, HashMap<String, String>> mainMap = dictionary.getDictionary();
-
-        // Loop through the mainMap entries
-        for (Map.Entry<String, HashMap<String, String>> mainMapElements : mainMap.entrySet()) {
-
-            mainKey = mainMapElements.getKey().toLowerCase();
-
-            if (word.equals(mainKey)) {
-                choiceBox1.setValue("Chavacano");
-
-                // Stop searching once the word is found
-
-            } else if (!word.equals(mainKey)) {
-                innerMap = mainMapElements.getValue();
-                // Iterate through the innerMap to find the translation based on input language
-                for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
-                    innerKey = innerMapElements.getKey();
-                    innerValue = innerMapElements.getValue().toLowerCase();
-
-                    // Checking it matches regardless of the ","
-                    boolean isMatch = isMatch(innerValue,inputWord);
-
-                    if (word.equals(innerValue) || isMatch) {
-                        switch (innerKey) {
-                            case "transFil":
-                                choiceBox1.setValue("Filipino");
-                                break;
-                            case "transEng":
-                                choiceBox1.setValue("English");
-                                break;
-                        }
+            if (word.equals(mainKeyLowerCase)) {
+                choiceBox.setValue("Chavacano");
+            } else {
+                value.forEach((innerKey, innerValue) -> {
+                    if (hasMatch(innerValue.toLowerCase(), word)) {
+                        if ("transFil".equals(innerKey)) choiceBox.setValue("Filipino");
+                        if ("transEng".equals(innerKey)) choiceBox.setValue("English");
                     }
-                }
+                });
             }
-        }
-
-        // for the output to automatically identify
-        for (Map.Entry<String, HashMap<String, String>> mainMapElements : mainMap.entrySet()) {
-            mainKey = mainMapElements.getKey();
-
-            if (wordOutput.equals(mainKey)) {
-                choiceBox1.setValue("Chavacano");
-
-            } else if (!wordOutput.equals(mainKey)) {
-                innerMap = mainMapElements.getValue();
-                for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
-                    innerKey = innerMapElements.getKey();
-                    innerValue = innerMapElements.getValue().toLowerCase();
-
-                    if (wordOutput.equals(innerValue)) {
-
-                        switch (innerKey) {
-                            case "transFil":
-                                choiceBox1.setValue("Filipino");
-                                break;
-                            case "transEng":
-                                choiceBox1.setValue("English");
-                                break;
-                        }
-
-                    }
-                }
-            }
-        }
-
+        });
     }
 
-    private void translatingTheWords(String words, String outputLanguage) {
-        words = inputWord;
-        outputLanguage = chosenOutputLanguage;
+    private void translateInput(String word, String outputLanguage) {
+        dictionary.getDictionary().forEach((key, value) -> {
+            String mainKeyLowerCase = key.toLowerCase();
 
-        Map<String, HashMap<String, String>> mainMap = dictionary.getDictionary();
-        boolean isFound = false;
+            if (word.equals(mainKeyLowerCase)) {
+                setTranslation(outputLanguage, key);
+            } else if (outputLanguage.equals("Chavacano")) {
+                String english = dictionary.getTransEng(key);
+                String fil = dictionary.getTransFil(key);
 
-        // Loop through the mainMap entries
-        for (Map.Entry<String, HashMap<String, String>> mainMapElements : mainMap.entrySet()) {
-
-            // Get the current key (e.g., 'bienvenidos')
-            mainK = mainMapElements.getKey();
-            mainKey = mainK.toLowerCase();
-
-            //the inner hashmap
-            Map<String, String> innerMap = mainMapElements.getValue();
-
-            //if a match is not found, run the condition
-            if (!isFound){
-                //if the input is equal to the main key
-                if (words.equals(mainKey)) {
-                    switch (outputLanguage) {
-                        case "English":
-                            String englishTrans = dictionary.getTransEng(mainK);
-                            textArea2.setText(englishTrans);
-                            break;
-                        case "Filipino":
-                            String filipinoTrans = dictionary.getTransFil(mainK);
-                            textArea2.setText(filipinoTrans);
-                            break;
-                        case "Chavacano":
-                            textArea2.setText(mainK);
-                            break;
-                    }
-                    //match found, ends the loop
-                    isFound = true;
+                if (hasMatch(english, word)|| hasMatch(fil, word)){
+                    textArea2.setText(key);
                 }
 
-                //if the input is not equals to the main key, run the condition
-                if (!words.equals(mainKey)){
-                    //iterate throught the inner hashmap
-                    for (Map.Entry<String, String> innerMapElements : innerMap.entrySet()) {
-                        innerKey = innerMapElements.getKey();
-                        innerVal = innerMapElements.getValue();
-                        innerValue = innerVal.toLowerCase();
-
-                        //if there is no found match, run the condition
-                        if (!isFound) {
-
-                            //if the input is equal to the innervalue
-                            if (words.equals(innerValue)) {
-
-                                //the key of the current inner value
-                                switch (innerKey) {
-                                    // basically if it connects to english then it will automatically translate tagalog
-                                    case "transEng":
-                                        // and this is the choicebox area to just specify if the chosen if filipino then it will print the filipino
-                                        // translation of that word
-                                        if (chosenOutputLanguage.equals("Filipino")) {
-                                            String filipinoTrans = dictionary.getTransFil(mainK);
-                                            textArea2.setText(filipinoTrans);
-                                            // else if the choicebox is specified with chavacano then it should just print the mainK
-                                            // mainK = chavacano automatically
-                                        } else if (chosenOutputLanguage.equals("Chavacano")) {
-                                            textArea2.setText(mainK);
-                                        }
-                                        // else, kung english to english it should just print the inner value
-                                        else textArea2.setText(innerVal);
-                                        isFound = true;
-                                        break;
-                                    case "transFil":
-                                        if (chosenOutputLanguage.equals("English")) {
-                                            String englishTrans = dictionary.getTransEng(mainK);
-                                            textArea2.setText(englishTrans);
-                                        } else if (chosenOutputLanguage.equals("Chavacano")) {
-                                            textArea2.setText(mainK);
-                                        } else textArea2.setText(innerVal);
-                                        isFound = true;
-                                        break;
-                                }
-                                //if the inner value has a comma, separates the values, and
-                                // checks if the word is equal to one of those values
-                            } else if (innerValue.contains(",")) {
-                                boolean match = isMatch(innerValue, words);
-                                if (match) {
-                                    chavacanoTranslation();
-                                    textArea2.setText(innerValue);
-                                    isFound = true;
-
-                                    if (outputLanguage.equals("English")) {
-                                        String translation = dictionary.getTransEng(mainK);
-                                        textArea2.setText(translation);
-                                    } else if (outputLanguage.equals("Filipino")) {
-                                        String translation = dictionary.getTransFil(mainK);
-                                        textArea2.setText(translation);
-                                    } else {
-                                        String translation = mainK;
-                                        textArea2.setText(translation);
-                                    }
-                                }
-                                //if there are no matches
-                            } else {
-                                textArea2.setText(" ");
-                            }
-                        }
-
-
+            } else {
+                value.forEach((innerKey, innerValue) -> {
+                    if (hasMatch(innerValue.toLowerCase(), word)) {
+                        setTranslation(outputLanguage, key);
                     }
-                }
+                });
             }
+        });
+    }
+
+    private void setTranslation(String outputLanguage, String mainKey) {
+        switch (outputLanguage) {
+            case "English":
+                textArea2.setText(dictionary.getTransEng(mainKey));
+                break;
+            case "Filipino":
+                textArea2.setText(dictionary.getTransFil(mainKey));
+                break;
+            case "Chavacano":
+                textArea2.setText(mainKey);
+                break;
+            default:
+                textArea2.clear();
         }
     }
 
-
-    private boolean isMatch(String innerMapValue, String input){
-        String[] split = innerMapValue.split(",");
-
-        for (int i = 0; i <= split.length - 1; i++){
-            if (split[i].toLowerCase().equals(input)){
+    private boolean hasMatch(String innerValue, String input) {
+        for (String value : innerValue.split(",")) {
+            if (value.trim().equalsIgnoreCase(input)) {
                 return true;
             }
         }
-
         return false;
     }
 
-    private void chavacanoTranslation(){
-        switch (innerKey){
-            case "transEng":
-                if (chosenOutputLanguage.equals("Filipino")){
-                    String filipinoTrans = dictionary.getTransFil(mainK);
-                    textArea2.setText(filipinoTrans);
-                }
-                else if (chosenOutputLanguage.equals("Chavacano")) {
-                        textArea2.setText(mainK);
-                } else textArea2.setText(mainK);
-
-                break;
-            case "transFil":
-                if (chosenOutputLanguage.equals("English")){
-                    String englishTrans = dictionary.getTransFil(mainK);
-                    textArea2.setText(englishTrans);
-                }
-                else if (chosenOutputLanguage.equals("Chavacano")) {
-                        textArea2.setText(mainK);
-                } else textArea2.setText(mainK);
-        }
-    }
-
     private void addCheckBoxDesign(ChoiceBox<String> choiceBoxDesign) {
-        // Set style for the ChoiceBox itself
         choiceBoxDesign.setStyle(
-                "-fx-background-color: #FFFFFF;" +  // White background for visibility and interaction
-                        "-fx-font-family: 'MADE Carving Bold';" +  // Correct font family
-                        "-fx-font-size: 15px;" +  // Font size
-                        "-fx-padding: 5;" +  // Padding for text spacing
-                        "-fx-arrow-size: 14;"  // Size of the dropdown arrow
+                "-fx-background-color: #FFFFFF;" +
+                        "-fx-font-family: 'MADE Carving Bold';" +
+                        "-fx-font-size: 15px;" +
+                        "-fx-padding: 5;" +
+                        "-fx-arrow-size: 14;"
         );
     }
-
-
-
 }

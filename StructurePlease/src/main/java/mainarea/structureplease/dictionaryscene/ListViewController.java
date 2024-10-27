@@ -9,25 +9,24 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import mainarea.structureplease.dictionaryloader.DATA2;
 import mainarea.structureplease.dictionaryloader.LoadDictionary;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ListViewController {
     @FXML
     public ListView<DictionaryEntry> myListView;
     public Node vBox;
     private String input, selectedKey;
-    private LoadDictionary dictionary;
+    private DATA2 dictionary;
     private static ListViewController instance;
     private DictionarySceneController mainScene;
     private DictionaryContentController dc;
 
     public void initialize(){
         instance = this;
-        dictionary = new LoadDictionary();
+        dictionary = new DATA2("/data/content.txt");
         input = "";
 
         myListView.setCellFactory(param -> new ListCell<DictionaryEntry>() {
@@ -41,16 +40,14 @@ public class ListViewController {
                 } else {
                     // Create labels for each piece of information
                     Label wordLabel = new Label(item.getWord());
-                    Label englishLabel = new Label("English: " + item.getTranslationEnglish());
-                    Label filipinoLabel = new Label("Filipino: " + item.getTranslationFilipino());
+                    Label definitionLabel = new Label(item.getDefinition());
 
                     wordLabel.setFont(Font.font(null, 24));
-                    englishLabel.setFont(Font.font(null, 12)); // Set font size to 12 for English label
-                    filipinoLabel.setFont(Font.font(null, 12));
+                    definitionLabel.setFont(Font.font(null, 12)); // Set font size to 12 for English label
 
                     // Clear and add labels to VBox
                     vbox.getChildren().clear();
-                    vbox.getChildren().addAll(wordLabel, englishLabel, filipinoLabel);
+                    vbox.getChildren().addAll(wordLabel, definitionLabel);
 
                     setGraphic(vbox); // Use VBox as the graphic for the cell
                 }
@@ -63,14 +60,13 @@ public class ListViewController {
                 if (newValue != null) {
                     dc = DictionaryContentController.getDictionaryContentController();
                     String selectedKey = newValue.getWord() + "\n"
-                            + newValue.getTranslationEnglish() + "\n"
-                            + newValue.getTranslationFilipino();
+                            + newValue.getDefinition() + "\n";
 
                     mainScene = DictionarySceneController.getDictionarySceneController();
                     vBox.setVisible(false);
                     mainScene.getDictionaryContent().setVisible(true);
-
-                    System.out.println("This is the input before passing: " + selectedKey);
+//
+//                    System.out.println("This is the input before passing: " + selectedKey);
                     dc.setInput(newValue.getWord());
                     dc.displayDictionary();
                 }
@@ -83,65 +79,71 @@ public class ListViewController {
     }
 
     //creates items for the listview
-    public ArrayList<DictionaryEntry> createListViewItems(){
-        input = input.toLowerCase();
-        System.out.println(input);
+    public ArrayList<DictionaryEntry> createListViewItems() {
+        input = removeSpaces(input.toLowerCase());
+
+//        System.out.println(input);
         //stores the results from search (keys)
         ArrayList<DictionaryEntry> list = new ArrayList<>();
 
         //gets the map
-        Map<String, HashMap<String,String>> map = dictionary.getDictionary();
+        Map<String, String> map = dictionary.getDictionary();
+        boolean isMatch = false;
 
         //iterates through the dictionary map
-        for (Map.Entry<String , HashMap<String, String>> mapElements: map.entrySet()){
+        for (Map.Entry<String, String> mapElements : map.entrySet()) {
 
             //takes the map within the dictionary map (inner map)
-            Map<String, String> innerMap = mapElements.getValue();
 
             //takes the current key of the dictionary map
-            String key = mapElements.getKey();
+            String key = removeSpaces(mapElements.getKey());
+            String value = removeSpaces(mapElements.getValue());
 
             //if key contains input adds the key to the List
             //ex: Bienvenidos contains Bie
-            if (key.toLowerCase().contains(input)){
+            if (key.toLowerCase().startsWith(input)) {
                 listViewEntry(key, list);
+                isMatch = true;
             }
-            else { //if key does not contain or is not equal to the input, checks for the inner map (english translation/ filipino translation)
-                //iterates through the inner map
-                for (Map.Entry<String, String> innerElements: innerMap.entrySet()){
-
-                    //gets the current value of the inner map
-                    String innerMapValue = innerElements.getValue();
-
-                    //for checking only
-                    if (innerMapValue.toLowerCase().contains(",")){
-                        String[] split = innerMapValue.split(", ");
-                        for (int i = 0; i <= split.length - 1; i++){
-                            if (split[i].toLowerCase().startsWith(input)){
-                                listViewEntry(key, list);
-                            }
-                        }
+            if (!isMatch) {
+                String[] valueSplit = value.split("[.;,]+");
+                for (String split : valueSplit) {
+                    if (split.startsWith(input)) {
+                        listViewEntry(key, list);
                     }
-                    // Check if 'match' is true and if 'stringValue' contains or equals the 'input'
-                    else if (innerMapValue.toLowerCase().startsWith(input)|| innerMapValue.toLowerCase().equals(input)){
-                        //ads the key of the dictionary map (the original map) to the List
-                       listViewEntry(key, list);
+                    if (input.startsWith(split)) {
+                        listViewEntry(key, list);
                     }
                 }
+
             }
 
         }
         return list;
     }
 
+    // Method to remove all spaces from a string
+    public static String removeSpaces(String input) {
+        if (input == null) {
+            return null; // Return null if input is null
+        }
+        return input.replaceAll("\\s+", ""); // Remove all whitespace characters
+    }
     private void listViewEntry(String key, ArrayList<DictionaryEntry> list){
-        String translationEnglish = dictionary.getTransEng(key);
-        String translationFilipino = dictionary.getTransFil(key);
-        list.add(new DictionaryEntry(key, translationEnglish, translationFilipino));
+        String definition = dictionary.getDictionary().get(key);
+
+        list.add(new DictionaryEntry(key, definition));
     }
     public void updateListViewItems() {
         myListView.getItems().clear();
         ArrayList<DictionaryEntry> words = createListViewItems();
+
+        Collections.sort(words, new Comparator<DictionaryEntry>() {
+            @Override
+            public int compare(DictionaryEntry o1, DictionaryEntry o2) {
+                return o1.getWord().compareToIgnoreCase(o2.getWord());
+            }
+        });
         myListView.getItems().addAll(words);
 
     }

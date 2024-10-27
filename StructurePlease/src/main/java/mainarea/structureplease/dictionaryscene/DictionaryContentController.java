@@ -4,12 +4,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import mainarea.structureplease.OpeningController;
+import mainarea.structureplease.dictionaryloader.DATA2;
 import mainarea.structureplease.dictionaryloader.LoadDictionary;
 
 public class DictionaryContentController {
-    public Text word, enunciation, classification, translationEnglish,
-            translationFilipino, exampleEnglish, exampleFilipino, exampleChavacano, exampleSentences;
-
+    public Text word,definition, test;
     public Node mainWindow;
     public Button returnButton;
     private String input;
@@ -18,34 +17,19 @@ public class DictionaryContentController {
     private DictionarySceneController dictionarySceneController;
     private ListViewController listViewController;
 
-    private LoadDictionary dictionary;
+    private DATA2 dictionary;
 
     public void initialize(){
         dictionaryContentController = this;
-        dictionary = new LoadDictionary();
+        dictionary = new DATA2("/data/content.txt");
         listViewController = ListViewController.getInstance();
 
 
     }
     public void displayDictionary(){
-        System.out.println("the is the input that was passed: " + input);
-
-        String enun = dictionary.getPronunciation(input);
-        String classif = dictionary.getClassification(input);
-        String transEn = dictionary.getTransEng(input);
-        String transFil = dictionary.getTransFil(input);
-        String exampleEn = dictionary.getExEng(input);
-        String exampleFil = dictionary.getExFil(input);
-        String exampleChav = dictionary.getExCha(input);
-
         word.setText(input);
-        enunciation.setText(enun);
-        classification.setText(classif);
-        translationEnglish.setText("In English: "+ transEn);
-        translationFilipino.setText("In Filipino: " +transFil);
-        exampleEnglish.setText("English: "+ exampleEn);
-        exampleFilipino.setText("Filipino: " + exampleFil);
-        exampleChavacano.setText("Chavacano: " + exampleChav);
+        definition.setText(dictionary.getDictionary().get(input));
+
     }
 
     public void setInput(String input){
