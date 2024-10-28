@@ -30,7 +30,7 @@ public class MainPageController {
 
     public void initialize(){
         openingController = OpeningController.getOpeningController();
-        Font chavitoFont = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 38);
+        Font chavitoFont = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 30);
 
         addButtonDesign(wordPopButton);
         addButtonDesign(dictionaryButton);

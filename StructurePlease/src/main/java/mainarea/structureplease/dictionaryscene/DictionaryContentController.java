@@ -2,13 +2,13 @@ package mainarea.structureplease.dictionaryscene;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import mainarea.structureplease.OpeningController;
-import mainarea.structureplease.dictionaryloader.DATA2;
 import mainarea.structureplease.dictionaryloader.LoadDictionary;
 
 public class DictionaryContentController {
-    public Text word, enunciation, classification, transEng, exCebuano, exEnglish;
+    public Text word, enunciation, classification, transEng, exCebuano, exEnglish,
+            englishLabel, exampleEnglish, exampleCebuano;
     public Node mainWindow;
     public Button returnButton;
     private String input;
@@ -27,6 +27,17 @@ public class DictionaryContentController {
 
     }
     public void displayDictionary(){
+        String fontBold = "/fonts/MADECarvingSoftPERSONALUSE-Bold.otf";
+        String fontRegular = "/fonts/MADECarvingSoftPERSONALUSE-Regular.otf";
+        setTextFont(word,fontBold,48);
+        setTextFont(enunciation,fontRegular,24);
+        setTextFont(classification,fontRegular,24);
+        setTextFont(englishLabel, fontBold, 20);
+        setTextFont(transEng,fontRegular,24);
+        setTextFont(exampleCebuano, fontBold, 20);
+        setTextFont(exCebuano,fontRegular, 24);
+        setTextFont(exampleEnglish, fontBold, 20);
+        setTextFont(exEnglish,fontRegular, 24);
         word.setText(input);
         enunciation.setText(dictionary.getEnunciation(input));
         classification.setText(dictionary.getClassification(input));
@@ -35,7 +46,10 @@ public class DictionaryContentController {
         exEnglish.setText(dictionary.getExEng(input));
 
     }
-
+    private void setTextFont(Text text, String fontPath, int fontSize){
+        Font myFont = Font.loadFont(getClass().getResource(fontPath).toExternalForm(), fontSize);
+        text.setFont(myFont);
+    }
     public void setInput(String input){
         this.input = input;
     }

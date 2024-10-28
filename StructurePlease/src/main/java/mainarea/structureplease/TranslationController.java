@@ -25,17 +25,20 @@ public class TranslationController implements Initializable {
     private LoadDictionary dictionary;
     private String chosenOutputLanguage;
     private String inputWord;
-    private static final String[] choiceBoxLanguages = {"Filipino", "English", "Chavacano"};
+    private static final String[] choiceBoxLanguages = {"English", "Cebuano"};
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Font headerText = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 48);
+        Font textAreaFont = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Regular.otf").toExternalForm(), 24);
         translatorText.setFont(headerText);
+        textArea1.setFont(textAreaFont);
+        textArea2.setFont(textAreaFont);
         dictionary = new LoadDictionary();
 
         // Initialize choice boxes
-        setupChoiceBox(choiceBox1, "Filipino");
-        setupChoiceBox(choiceBox2, "Chavacano");
+        setupChoiceBox(choiceBox1, "English");
+        setupChoiceBox(choiceBox2, "Cebuano");
 
         // Add listeners for choiceBox selections and text area input
         choiceBox1.setOnAction(this::processWord);
@@ -68,12 +71,15 @@ public class TranslationController implements Initializable {
             String mainKeyLowerCase = key.toLowerCase();
 
             if (word.equals(mainKeyLowerCase)) {
-                choiceBox.setValue("Chavacano");
+                choiceBox.setValue("Cebuano");
+                choiceBox2.setValue("English");
             } else {
                 value.forEach((innerKey, innerValue) -> {
                     if (hasMatch(innerValue.toLowerCase(), word)) {
-                        if ("transFil".equals(innerKey)) choiceBox.setValue("Filipino");
-                        if ("transEng".equals(innerKey)) choiceBox.setValue("English");
+                        if ("transEng".equals(innerKey)){
+                            choiceBox.setValue("English");
+                            choiceBox2.setValue("Cebuano");
+                        }
                     }
                 });
             }
@@ -86,11 +92,9 @@ public class TranslationController implements Initializable {
 
             if (word.equals(mainKeyLowerCase)) {
                 setTranslation(outputLanguage, key);
-            } else if (outputLanguage.equals("Chavacano")) {
+            } else if (outputLanguage.equals("Cebuano")) {
                 String english = dictionary.getTransEng(key);
-                String fil = dictionary.getTransFil(key);
-
-                if (hasMatch(english, word)|| hasMatch(fil, word)){
+                if (hasMatch(english, word)){
                     textArea2.setText(key);
                 }
 
@@ -109,10 +113,7 @@ public class TranslationController implements Initializable {
             case "English":
                 textArea2.setText(dictionary.getTransEng(mainKey));
                 break;
-            case "Filipino":
-                textArea2.setText(dictionary.getTransFil(mainKey));
-                break;
-            case "Chavacano":
+            case "Cebuano":
                 textArea2.setText(mainKey);
                 break;
             default:
@@ -121,14 +122,17 @@ public class TranslationController implements Initializable {
     }
 
     private boolean hasMatch(String innerValue, String input) {
-        for (String value : innerValue.split(",")) {
+        for (String value : innerValue.split("[/()]")) {
             if (value.trim().equalsIgnoreCase(input)) {
                 return true;
             }
         }
         return false;
     }
-
+    private void setTextFont(Text text, String fontPath, int fontSize){
+        Font myFont = Font.loadFont(getClass().getResource(fontPath).toExternalForm(), fontSize);
+        text.setFont(myFont);
+    }
     private void addCheckBoxDesign(ChoiceBox<String> choiceBoxDesign) {
         choiceBoxDesign.setStyle(
                 "-fx-background-color: #FFFFFF;" +

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="768.0" prefWidth="1052.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.MainPageController">
+<BorderPane prefHeight="768.0" prefWidth="1052.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.MainPageController">
    <center>
       <HBox BorderPane.alignment="CENTER">
          <children>
@@ -69,7 +69,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="chabaFlashButton" alignment="TOP_LEFT" layoutX="14.0" layoutY="363.0" mnemonicParsing="false" onAction="#showChabaFlash" prefHeight="50.0" prefWidth="265.0" style="-fx-background-color: transparent; -fx-text-fill: black;" text="Chabaflash" AnchorPane.leftAnchor="14.0">
+                        <Button fx:id="chabaFlashButton" alignment="TOP_LEFT" layoutX="14.0" layoutY="363.0" mnemonicParsing="false" onAction="#showChabaFlash" prefHeight="50.0" prefWidth="265.0" style="-fx-background-color: transparent; -fx-text-fill: black;" text="Cebuflash" AnchorPane.leftAnchor="14.0">
                            <font>
                               <Font size="32.0" />
                            </font>
@@ -81,9 +81,9 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="chavitoButton" alignment="TOP_LEFT" layoutX="9.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToOpening" prefHeight="100.0" prefWidth="279.0" style="-fx-background-color: transparent; -fx-text-fill: black;" text="Chavito" AnchorPane.leftAnchor="9.0">
+                        <Button fx:id="chavitoButton" alignment="TOP_LEFT" layoutX="9.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToOpening" prefHeight="100.0" prefWidth="279.0" style="-fx-background-color: transparent; -fx-text-fill: black;" text="Cebuary" AnchorPane.leftAnchor="9.0">
                            <font>
-                              <Font size="40.0" />
+                              <Font size="36.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="85.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">

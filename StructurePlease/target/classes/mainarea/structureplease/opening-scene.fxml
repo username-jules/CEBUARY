@@ -7,14 +7,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.OpeningController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.OpeningController">
    <children>
-      <Button fx:id="continueButton" layoutX="920.0" layoutY="407.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="66.0" prefWidth="332.0" style="-fx-background-color: #F92727; -fx-background-radius: 5em;" text="Continue" textFill="WHITE">
+      <Button fx:id="continueButton" layoutX="920.0" layoutY="407.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="66.0" prefWidth="332.0" style="-fx-background-color: #F92727; -fx-background-radius: 5em;" text="Continue" textFill="WHITE" AnchorPane.bottomAnchor="294.6">
          <font>
             <Font size="32.0" />
          </font>
       </Button>
-      <Text fx:id="chavacaKnowText" layoutX="153.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ChavacaKnow" wrappingWidth="404.283203125">
+      <Text fx:id="chavacaKnowText" layoutX="153.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cebuary" wrappingWidth="404.283203125">
          <font>
             <Font size="64.0" />
          </font>
@@ -24,12 +24,12 @@
             <Image url="@../../images/chabiNormal.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="660.0" fitWidth="660.0" layoutX="143.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="660.0" fitWidth="660.0" layoutX="143.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="143.0">
          <image>
             <Image url="@../../images/chabiStanding.png" />
          </image>
       </ImageView>
-      <Text fx:id="unlock" layoutX="855.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unlock the rich heritage of Chavacano through learning!" textAlignment="CENTER" wrappingWidth="462.703125">
+      <Text fx:id="unlock" layoutX="855.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unlock the rich heritage of Cebuano through learning!" textAlignment="CENTER" wrappingWidth="462.703125" AnchorPane.bottomAnchor="389.40625">
          <font>
             <Font size="32.0" />
          </font>

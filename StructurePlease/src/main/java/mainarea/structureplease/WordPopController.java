@@ -1,6 +1,7 @@
 package mainarea.structureplease;
 
 import javafx.fxml.FXML;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import mainarea.structureplease.dictionaryloader.LoadDictionary;
 
@@ -14,7 +15,8 @@ import java.util.Set;
 
 public class WordPopController {
     @FXML
-    public Text word, enunciation, classification, transEng, exCebuano, exEnglish;
+    public Text word, enunciation, classification, transEng, exCebuano, exEnglish,
+            englishLabel, exampleEnglish, exampleCebuano, headerText;
     private int count;
     private LoadDictionary dictionary;
     private String[]keys;
@@ -22,6 +24,8 @@ public class WordPopController {
 
     public void initialize(){
         dictionary = new LoadDictionary();
+        Font myFont = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 48);
+        headerText.setFont(myFont);
         Path projectDirectory = Paths.get("").toAbsolutePath();
         String fileName = "word-of-the-day.txt";
         Path filePath = projectDirectory.resolve(fileName);
@@ -32,12 +36,28 @@ public class WordPopController {
     }
 
     public void displayDictionary(){
+        String fontBold = "/fonts/MADECarvingSoftPERSONALUSE-Bold.otf";
+        String fontRegular = "/fonts/MADECarvingSoftPERSONALUSE-Regular.otf";
+        setTextFont(word,fontBold,48);
+        setTextFont(enunciation,fontRegular,24);
+        setTextFont(classification,fontRegular,24);
+        setTextFont(englishLabel, fontBold, 20);
+        setTextFont(transEng,fontRegular,24);
+        setTextFont(exampleCebuano, fontBold, 20);
+        setTextFont(exCebuano,fontRegular, 24);
+        setTextFont(exampleEnglish, fontBold, 20);
+        setTextFont(exEnglish,fontRegular, 24);
         word.setText(key);
         enunciation.setText(dictionary.getEnunciation(key));
         classification.setText(dictionary.getClassification(key));
         transEng.setText(dictionary.getTransEng(key));
         exCebuano.setText(dictionary.getExCeb(key));
         exEnglish.setText(dictionary.getExEng(key));
+
+    }
+    private void setTextFont(Text text, String fontPath, int fontSize){
+        Font myFont = Font.loadFont(getClass().getResource(fontPath).toExternalForm(), fontSize);
+        text.setFont(myFont);
     }
 
     private void processFile(Path filePath){

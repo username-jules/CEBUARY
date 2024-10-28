@@ -41,10 +41,11 @@ public class ListViewController {
                     Label wordLabel = new Label(item.getCebuanoWord());
                     Label enunciationLabel = new Label(item.getEnunciation());
                     Label englishLabel = new Label("In English: " + item.getEngTrans());
-
-                    wordLabel.setFont(Font.font(null, 24));
-                    enunciationLabel.setFont(Font.font(null, 12)); // Set font size to 12 for English label
-                    englishLabel.setFont(Font.font(null, 12)); // Set font size to 12 for English label
+                    Font myFont = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 28);
+                    wordLabel.setFont(myFont);
+                    myFont = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 12);
+                    enunciationLabel.setFont(myFont); // Set font size to 12 for English label
+                    englishLabel.setFont(myFont); // Set font size to 12 for English label
 
                     // Clear and add labels to VBox
                     vbox.getChildren().clear();

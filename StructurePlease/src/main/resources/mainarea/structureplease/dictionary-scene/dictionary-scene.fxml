@@ -30,7 +30,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Text fill="#f92727" layoutX="157.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dictionary" AnchorPane.leftAnchor="157.0" AnchorPane.topAnchor="93.0">
+      <Text fx:id="headerText" fill="#f92727" layoutX="157.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dictionary" AnchorPane.leftAnchor="157.0" AnchorPane.topAnchor="93.0">
          <font>
             <Font size="48.0" />
          </font>

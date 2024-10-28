@@ -5,11 +5,14 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import mainarea.structureplease.OpeningController;
 
 public class DictionarySceneController {
     @FXML
     public TextField searchBar;
+    public Text headerText;
     public Node listView;
     public Node vBox;
     public Node dictionaryContent;
@@ -20,6 +23,8 @@ public class DictionarySceneController {
     private ListViewController listViewController;
 
     public void initialize(){
+        Font myFont = Font.loadFont(getClass().getResource("/fonts/MADECarvingSoftPERSONALUSE-Bold.otf").toExternalForm(), 48);
+        headerText.setFont(myFont);
         dictionarySceneController = this;
         listViewController = ListViewController.getInstance();
         dc = DictionaryContentController.getDictionaryContentController();
