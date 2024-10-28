@@ -9,7 +9,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import mainarea.structureplease.dictionaryloader.DATA2;
 import mainarea.structureplease.dictionaryloader.LoadDictionary;
 
 import java.util.*;
@@ -19,14 +18,14 @@ public class ListViewController {
     public ListView<DictionaryEntry> myListView;
     public Node vBox;
     private String input, selectedKey;
-    private DATA2 dictionary;
+    private LoadDictionary dictionary;
     private static ListViewController instance;
     private DictionarySceneController mainScene;
     private DictionaryContentController dc;
 
     public void initialize(){
         instance = this;
-        dictionary = new DATA2("/data/content.txt");
+        dictionary = new LoadDictionary();
         input = "";
 
         myListView.setCellFactory(param -> new ListCell<DictionaryEntry>() {
@@ -39,8 +38,8 @@ public class ListViewController {
                     setGraphic(null); // Clear the cell if it's empty
                 } else {
                     // Create labels for each piece of information
-                    Label wordLabel = new Label(item.getWord());
-                    Label definitionLabel = new Label(item.getDefinition());
+                    Label wordLabel = new Label(item.getCebuanoWord());
+                    Label definitionLabel = new Label(item.getEngTrans());
 
                     wordLabel.setFont(Font.font(null, 24));
                     definitionLabel.setFont(Font.font(null, 12)); // Set font size to 12 for English label
@@ -59,15 +58,15 @@ public class ListViewController {
             public void changed(ObservableValue<? extends DictionaryEntry> observableValue, DictionaryEntry oldValue, DictionaryEntry newValue) {
                 if (newValue != null) {
                     dc = DictionaryContentController.getDictionaryContentController();
-                    String selectedKey = newValue.getWord() + "\n"
-                            + newValue.getDefinition() + "\n";
+                    String selectedKey = newValue.getCebuanoWord() + "\n"
+                            + newValue.getEngTrans() + "\n";
 
                     mainScene = DictionarySceneController.getDictionarySceneController();
                     vBox.setVisible(false);
                     mainScene.getDictionaryContent().setVisible(true);
 //
 //                    System.out.println("This is the input before passing: " + selectedKey);
-                    dc.setInput(newValue.getWord());
+                    dc.setInput(newValue.getCebuanoWord());
                     dc.displayDictionary();
                 }
             }
@@ -79,47 +78,72 @@ public class ListViewController {
     }
 
     //creates items for the listview
-    public ArrayList<DictionaryEntry> createListViewItems() {
-        input = removeSpaces(input.toLowerCase());
+//    public ArrayList<DictionaryEntry> createListViewItems() {
+//        input = removeSpaces(input.toLowerCase());
+//
+////        System.out.println(input);
+//        //stores the results from search (keys)
+//        ArrayList<DictionaryEntry> list = new ArrayList<>();
+//
+//        //gets the map
+//        Map<String, String> map = dictionary.getDictionary();
+//        boolean isMatch = false;
+//
+//        //iterates through the dictionary map
+//        for (Map.Entry<String, String> mapElements : map.entrySet()) {
+//
+//            //takes the map within the dictionary map (inner map)
+//
+//            //takes the current key of the dictionary map
+//            String key = removeSpaces(mapElements.getKey());
+//            String value = removeSpaces(mapElements.getValue());
+//
+//            //if key contains input adds the key to the List
+//            //ex: Bienvenidos contains Bie
+//            if (key.toLowerCase().startsWith(input)) {
+//                listViewEntry(key, list);
+//                isMatch = true;
+//            }
+//            if (!isMatch) {
+//                String[] valueSplit = value.split("[.;,]+");
+//                for (String split : valueSplit) {
+//                    if (split.startsWith(input)) {
+//                        listViewEntry(key, list);
+//                    }
+//                    if (input.startsWith(split)) {
+//                        listViewEntry(key, list);
+//                    }
+//                }
+//
+//            }
+//
+//        }
+//        return list;
+//    }
 
-//        System.out.println(input);
-        //stores the results from search (keys)
-        ArrayList<DictionaryEntry> list = new ArrayList<>();
+    public ArrayList<DictionaryEntry> myListViewItems(String userInput){
+        ArrayList<DictionaryEntry> results = new ArrayList<>();
+        HashMap<String, HashMap<String, String>> myMap = dictionary.getDictionary();
+        for (Map.Entry<String, HashMap<String, String>> mainMap : myMap.entrySet()){
+            String key = mainMap.getKey();
 
-        //gets the map
-        Map<String, String> map = dictionary.getDictionary();
-        boolean isMatch = false;
-
-        //iterates through the dictionary map
-        for (Map.Entry<String, String> mapElements : map.entrySet()) {
-
-            //takes the map within the dictionary map (inner map)
-
-            //takes the current key of the dictionary map
-            String key = removeSpaces(mapElements.getKey());
-            String value = removeSpaces(mapElements.getValue());
-
-            //if key contains input adds the key to the List
-            //ex: Bienvenidos contains Bie
-            if (key.toLowerCase().startsWith(input)) {
-                listViewEntry(key, list);
-                isMatch = true;
+            if (key.equals(userInput)){
+                listViewEntry(key, results);
             }
-            if (!isMatch) {
-                String[] valueSplit = value.split("[.;,]+");
-                for (String split : valueSplit) {
-                    if (split.startsWith(input)) {
-                        listViewEntry(key, list);
-                    }
-                    if (input.startsWith(split)) {
-                        listViewEntry(key, list);
+            if (!key.equals(userInput)){
+                String engTrans = dictionary.getTransEng(key);
+                System.out.println("this is transEng" + engTrans);
+                String[] split = engTrans.split("/");
+                for (String word: split){
+                    if (word.equals(userInput)){
+                        listViewEntry(key, results);
+                        System.out.println("this is the split: " + word);
                     }
                 }
-
             }
 
         }
-        return list;
+        return results;
     }
 
     // Method to remove all spaces from a string
@@ -130,18 +154,18 @@ public class ListViewController {
         return input.replaceAll("\\s+", ""); // Remove all whitespace characters
     }
     private void listViewEntry(String key, ArrayList<DictionaryEntry> list){
-        String definition = dictionary.getDictionary().get(key);
+        String engTrans = dictionary.getTransEng(key);
 
-        list.add(new DictionaryEntry(key, definition));
+        list.add(new DictionaryEntry(key, engTrans));
     }
     public void updateListViewItems() {
         myListView.getItems().clear();
-        ArrayList<DictionaryEntry> words = createListViewItems();
+        ArrayList<DictionaryEntry> words = myListViewItems(input);
 
         Collections.sort(words, new Comparator<DictionaryEntry>() {
             @Override
             public int compare(DictionaryEntry o1, DictionaryEntry o2) {
-                return o1.getWord().compareToIgnoreCase(o2.getWord());
+                return o1.getCebuanoWord().compareToIgnoreCase(o2.getCebuanoWord());
             }
         });
         myListView.getItems().addAll(words);

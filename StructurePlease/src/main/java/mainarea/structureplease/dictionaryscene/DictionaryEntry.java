@@ -1,19 +1,19 @@
 package mainarea.structureplease.dictionaryscene;
 
 public class DictionaryEntry {
-    private final String word;
-    private final String definition;
+    private final String cebuanoWord;
+    private final String engTrans;
 
-    public DictionaryEntry(String word, String definition){
-        this.word = word;
-        this.definition = definition;
+    public DictionaryEntry(String CebuanoWord, String engTrans){
+        this.cebuanoWord = CebuanoWord;
+        this.engTrans = engTrans;
     }
 
-    public String getWord() {
-        return word;
+    public String getCebuanoWord() {
+        return cebuanoWord;
     }
 
-    public String getDefinition() {
-        return definition;
+    public String getEngTrans() {
+        return engTrans;
     }
 }

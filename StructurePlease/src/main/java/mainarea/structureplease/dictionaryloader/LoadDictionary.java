@@ -5,7 +5,7 @@ public class LoadDictionary {
     private Data data;
     private HashMap<String, HashMap<String, String>> dictionary;
     public LoadDictionary(){
-        data = new Data("/data/dataset.txt");
+        data = new Data("/data/cebuano.txt");
         dictionary = data.getData();
     }
 
@@ -14,11 +14,7 @@ public class LoadDictionary {
 
         return innerHashMap.get("classification");
     }
-    public String getPronunciation(String key){
-        HashMap<String, String> innerHashMap = dictionary.get(key);
 
-        return innerHashMap.get("pronunciation");
-    }
 
     public String getTransEng(String key){
         HashMap<String, String> innerHashMap = dictionary.get(key);
@@ -31,24 +27,30 @@ public class LoadDictionary {
 
         return innerHashMap.get("transFil");
     }
+    public String getExCeb(String key){
+        HashMap<String, String> innerHashMap = dictionary.get(key);
+
+        return innerHashMap.get("exCeb");
+    }
 
     public String getExEng(String key){
         HashMap<String, String> innerHashMap = dictionary.get(key);
 
         return innerHashMap.get("exEng");
     }
-    public String getExFil(String key){
-        HashMap<String, String> innerHashMap = dictionary.get(key);
 
-        return innerHashMap.get("exFil");
-    }
     public String getExCha(String key){
         HashMap<String, String> innerHashMap = dictionary.get(key);
 
         return innerHashMap.get("exCha");
     }
+    public String getEnunciation(String key){
+        HashMap<String, String> innerHashMap = dictionary.get(key);
 
+        return innerHashMap.get("enunciation");
+    }
     public HashMap<String, HashMap<String, String>> getDictionary() {
         return dictionary;
     }
+
 }

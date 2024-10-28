@@ -42,7 +42,6 @@ public class DictionarySceneController {
     }
 
     public void updateListView(ActionEvent actionEvent) {
-
         if (dictionaryContent.isVisible()){
             dictionaryContent.setVisible(false);
             listView.setVisible(true);
@@ -50,9 +49,10 @@ public class DictionarySceneController {
             listView.setVisible(true);
         }
         searchBarInput = searchBar.getText();
+        System.out.println(searchBarInput);
 //        System.out.println("this is the input from the search bar: " + searchBarInput);
         listViewController.input(searchBarInput);
-        listViewController.createListViewItems();
+        listViewController.myListViewItems(searchBarInput);
 //        listViewController.printValues();
         listViewController.updateListViewItems();
     }
