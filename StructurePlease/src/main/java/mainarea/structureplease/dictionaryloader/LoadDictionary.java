@@ -1,5 +1,6 @@
 package mainarea.structureplease.dictionaryloader;
 import java.util.HashMap;
+import java.util.Set;
 
 public class LoadDictionary {
     private Data data;
@@ -51,6 +52,14 @@ public class LoadDictionary {
     }
     public HashMap<String, HashMap<String, String>> getDictionary() {
         return dictionary;
+    }
+
+    public static void main(String[] args) {
+        LoadDictionary d = new LoadDictionary();
+        Set<String> keys = d.getDictionary().keySet();
+
+        // Print all keys
+        System.out.println("Keys: " + keys);
     }
 
 }

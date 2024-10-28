@@ -42,7 +42,7 @@ Tinuod|Adjective|Tee-noo-od|True|Tinuod ang iyang gisulti.|What he said is true.
 Sayop|Adjective|Sah-yohp|Wrong|Sayop kaayo ang akong gibuhat.|What I did was very wrong.
 Sakto|Adjective|Sahk-toh|Right|Sakto ka nga dili magdali-dali.|You're right not to rush.
 Paglaum|Noun|Pahg-lah-oom|Hope|Ang paglaum kay importante sa kinabuhi.|Hope is important in life.
-Lingaw	|Verb|Lee-ngahw|Enjoy/Fun|Lingaw kaayo mi sa beach.|We had so much fun at the beach.
+Lingaw|Verb|Lee-ngahw|Enjoy/Fun|Lingaw kaayo mi sa beach.|We had so much fun at the beach.
 Palihug|Expression|Pah-lee-hoog|Please|Palihug ko ug abli sa pultahan.|Please open the door for me.
 Bati|Adjective|Bah-tee|Ugly|Bati kaayo ang daan nga building.|The old building is very ugly.
 Pagkaon|Noun|Pahg-kah-on|Food|Lami ang pagkagion diri sa Cebu.|The food here in Cebu is delicious.
@@ -70,7 +70,7 @@ Magsugod|Verb|Mag-soo-god|Start|Magsugod ko ug trabaho ugma.|I’ll start work t
 Dula|Verb|Doo-lah|Play|Magdula mi ug volleyball sa hapon.|We'll play volleyball in the afternoon.
 Matulog|Verb|Mah-too-log|Sleep|Matulog nako kay kapoy kaayo.|I'm going to sleep because I'm very tired.
 Bangon|Verb|Bahng-on|Wake up|Bangon na, hapit na magsugod ang klase.|Wake up; class is about to start.
-Kwarta	Noun|Kwar-tah|Money|Kwarta ra ang gikinahanglan para sa proyekto.|Only money is needed for the project.
+Kwarta|Noun|Kwar-tah|Money|Kwarta ra ang gikinahanglan para sa proyekto.|Only money is needed for the project.
 Alimyon|Noun|Ah-lee-my-on|Smell|Lami ang alimyon sa luto ni mama.|The smell of mom's cooking is delicious.
 Bahog|Adjective|Bah-hog|Dirty|Ang iyang sapatos kay bahog na kaayo.|His shoes are very dirty.
 Limpyo|Adjective|Leem-pyo|Clean|Limpyo ang akong kwarto kay bag-o ko naglimpyo.|My room is clean because I just cleaned it.
@@ -94,7 +94,5 @@ Maminaw|Verb|Mah-mee-now|Listen|Maminaw ko sa imong istorya.|I’ll listen to yo
 Tinguha|Noun|Tee-ngoo-hah|Desire|Ang akong tinguha mao ang makat-on pa gyud.|My desire is to keep learning.
 Gihigugma|Verb|Gee-hee-goog-mah|Love|Gihigugma nako ang akong pamilya.|I love my family.
 Lami|Adjective|Lah-mee|Delicious|Lami kaayo ang pagkaon sa among probinsya.|The food in our province is very delicious.
-Tambal	|Noun|Tahm-bal|Medicine|Kinahanglan ko ug tambal kay gisakit akong ulo.|I need medicine because I have a headache.
+Tambal|Noun|Tahm-bal|Medicine|Kinahanglan ko ug tambal kay gisakit akong ulo.|I need medicine because I have a headache.
 Bahandi|Noun|Bah-han-dee|Treasure|Bahandi ang mga kaalam nga nakuha sa eskwela.|Knowledge gained from school is a treasure.
-
-

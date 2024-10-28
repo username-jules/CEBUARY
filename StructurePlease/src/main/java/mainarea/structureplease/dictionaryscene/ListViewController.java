@@ -122,17 +122,18 @@ public class ListViewController {
 //    }
 
     public ArrayList<DictionaryEntry> myListViewItems(String userInput){
+        System.out.println("this is the passed input: " + userInput);
         ArrayList<DictionaryEntry> results = new ArrayList<>();
         HashMap<String, HashMap<String, String>> myMap = dictionary.getDictionary();
         for (Map.Entry<String, HashMap<String, String>> mainMap : myMap.entrySet()){
             String key = mainMap.getKey();
-
-            if (key.equals(userInput)){
+            System.out.println("this is the curreny key: " + key);
+            if (key.contains(userInput)){
                 listViewEntry(key, results);
             }
             if (!key.equals(userInput)){
                 String engTrans = dictionary.getTransEng(key);
-                System.out.println("this is transEng" + engTrans);
+                System.out.println("this is current transEng: " + engTrans);
                 String[] split = engTrans.split("/");
                 for (String word: split){
                     if (word.equals(userInput)){
