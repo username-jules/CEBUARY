@@ -39,14 +39,16 @@ public class ListViewController {
                 } else {
                     // Create labels for each piece of information
                     Label wordLabel = new Label(item.getCebuanoWord());
-                    Label definitionLabel = new Label(item.getEngTrans());
+                    Label enunciationLabel = new Label(item.getEnunciation());
+                    Label englishLabel = new Label("In English: " + item.getEngTrans());
 
                     wordLabel.setFont(Font.font(null, 24));
-                    definitionLabel.setFont(Font.font(null, 12)); // Set font size to 12 for English label
+                    enunciationLabel.setFont(Font.font(null, 12)); // Set font size to 12 for English label
+                    englishLabel.setFont(Font.font(null, 12)); // Set font size to 12 for English label
 
                     // Clear and add labels to VBox
                     vbox.getChildren().clear();
-                    vbox.getChildren().addAll(wordLabel, definitionLabel);
+                    vbox.getChildren().addAll(wordLabel, enunciationLabel, englishLabel);
 
                     setGraphic(vbox); // Use VBox as the graphic for the cell
                 }
@@ -122,23 +124,20 @@ public class ListViewController {
 //    }
 
     public ArrayList<DictionaryEntry> myListViewItems(String userInput){
-        System.out.println("this is the passed input: " + userInput);
         ArrayList<DictionaryEntry> results = new ArrayList<>();
         HashMap<String, HashMap<String, String>> myMap = dictionary.getDictionary();
         for (Map.Entry<String, HashMap<String, String>> mainMap : myMap.entrySet()){
             String key = mainMap.getKey();
-            System.out.println("this is the curreny key: " + key);
             if (key.contains(userInput)){
                 listViewEntry(key, results);
             }
             if (!key.equals(userInput)){
                 String engTrans = dictionary.getTransEng(key);
-                System.out.println("this is current transEng: " + engTrans);
                 String[] split = engTrans.split("/");
                 for (String word: split){
                     if (word.equals(userInput)){
                         listViewEntry(key, results);
-                        System.out.println("this is the split: " + word);
+                        break;
                     }
                 }
             }
@@ -156,8 +155,8 @@ public class ListViewController {
     }
     private void listViewEntry(String key, ArrayList<DictionaryEntry> list){
         String engTrans = dictionary.getTransEng(key);
-
-        list.add(new DictionaryEntry(key, engTrans));
+        String enunciation = dictionary.getEnunciation(key);
+        list.add(new DictionaryEntry(key, enunciation, engTrans));
     }
     public void updateListViewItems() {
         myListView.getItems().clear();

@@ -8,7 +8,7 @@ import mainarea.structureplease.dictionaryloader.DATA2;
 import mainarea.structureplease.dictionaryloader.LoadDictionary;
 
 public class DictionaryContentController {
-    public Text word,definition, test;
+    public Text word, enunciation, classification, transEng, exCebuano, exEnglish;
     public Node mainWindow;
     public Button returnButton;
     private String input;
@@ -17,18 +17,22 @@ public class DictionaryContentController {
     private DictionarySceneController dictionarySceneController;
     private ListViewController listViewController;
 
-    private DATA2 dictionary;
+    private LoadDictionary dictionary;
 
     public void initialize(){
         dictionaryContentController = this;
-        dictionary = new DATA2("/data/content.txt");
+        dictionary = new LoadDictionary();
         listViewController = ListViewController.getInstance();
 
 
     }
     public void displayDictionary(){
         word.setText(input);
-        definition.setText(dictionary.getDictionary().get(input));
+        enunciation.setText(dictionary.getEnunciation(input));
+        classification.setText(dictionary.getClassification(input));
+        transEng.setText(dictionary.getTransEng(input));
+        exCebuano.setText(dictionary.getExCeb(input));
+        exEnglish.setText(dictionary.getExEng(input));
 
     }
 

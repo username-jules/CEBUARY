@@ -2,7 +2,6 @@ package mainarea.structureplease;
 
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
-import mainarea.structureplease.dictionaryloader.DATA2;
 import mainarea.structureplease.dictionaryloader.LoadDictionary;
 
 import java.io.*;
@@ -15,15 +14,14 @@ import java.util.Set;
 
 public class WordPopController {
     @FXML
-    public Text word, definition;
+    public Text word, enunciation, classification, transEng, exCebuano, exEnglish;
     private int count;
-    private DATA2 dictionary;
+    private LoadDictionary dictionary;
     private String[]keys;
     private String key = "";
 
-
     public void initialize(){
-        dictionary = new DATA2("/data/content.txt");
+        dictionary = new LoadDictionary();
         Path projectDirectory = Paths.get("").toAbsolutePath();
         String fileName = "word-of-the-day.txt";
         Path filePath = projectDirectory.resolve(fileName);
@@ -32,10 +30,14 @@ public class WordPopController {
 
         displayDictionary();
     }
-    public void displayDictionary(){
-            word.setText(key);
-            definition.setText(dictionary.getDictionary().get(key));
 
+    public void displayDictionary(){
+        word.setText(key);
+        enunciation.setText(dictionary.getEnunciation(key));
+        classification.setText(dictionary.getClassification(key));
+        transEng.setText(dictionary.getTransEng(key));
+        exCebuano.setText(dictionary.getExCeb(key));
+        exEnglish.setText(dictionary.getExEng(key));
     }
 
     private void processFile(Path filePath){
@@ -102,8 +104,7 @@ public class WordPopController {
         }
     }
     private String[] getKeys() {
-        HashMap<String, String> dictionaryMap = dictionary.getDictionary();
-        Set<String> set = dictionaryMap.keySet();
+        Set<String> set = dictionary.getDictionary().keySet();
         String []array = set.toArray(new String[0]);
         return array;
     }

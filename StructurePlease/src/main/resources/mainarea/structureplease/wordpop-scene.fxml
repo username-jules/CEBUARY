@@ -6,43 +6,53 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane fx:id="wordP" minHeight="768.0" minWidth="1052.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.WordPopController">
+<AnchorPane fx:id="mainWindow" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="778.0" style="-fx-border-color: F92727; -fx-border-radius: 28; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainarea.structureplease.WordPopController">
    <children>
-      <Text fill="#f92727" layoutX="157.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WordPop" AnchorPane.leftAnchor="157.0" AnchorPane.topAnchor="93.0">
-         <font>
-            <Font size="48.0" />
-         </font>
-      </Text>
-      <AnchorPane layoutX="146.0" layoutY="193.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="778.0" style="-fx-border-color: F92727; -fx-border-radius: 28;" AnchorPane.bottomAnchor="75.20000000000005" AnchorPane.leftAnchor="145.60000000000002" AnchorPane.rightAnchor="127.60000000000002" AnchorPane.topAnchor="193.0">
+      <VBox layoutX="40.8" layoutY="33.6" prefHeight="110.0" prefWidth="695.0" style="-fx-spacing: 0;" AnchorPane.bottomAnchor="353.6" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="33.6">
          <children>
-            <VBox layoutX="43.199999999999996" layoutY="28.8" prefHeight="115.0" prefWidth="695.0" style="-fx-spacing: 0;" AnchorPane.bottomAnchor="357.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="28.0">
+            <Text fx:id="word" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenidos" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+      <VBox layoutX="42.0" layoutY="110.0" prefHeight="325.0" prefWidth="695.0" style="-fx-background-color: FFFFFF;">
+         <children>
+            <Text fx:id="enunciation" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Enunciation">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="classification" strokeType="OUTSIDE" strokeWidth="0.0" text="Classification" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="transEng" strokeType="OUTSIDE" strokeWidth="0.0" text="In English" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <TextFlow>
                <children>
-                  <Text fx:id="word" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenidos">
+                  <Text fx:id="exCebuano" strokeType="OUTSIDE" strokeWidth="0.0" text="Example Cebuano">
                      <font>
-                        <Font name="System Bold" size="48.0" />
+                        <Font size="20.0" />
                      </font>
                   </Text>
                </children>
-            </VBox>
-            <VBox layoutX="41.0" layoutY="142.0" prefHeight="325.0" prefWidth="695.0">
+            </TextFlow>
+            <TextFlow>
                <children>
-                  <TextFlow>
-                     <children>
-                        <Text fx:id="definition" strokeType="OUTSIDE" strokeWidth="0.0" text="Noun" wrappingWidth="694.31640625">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </TextFlow>
-                  <TextFlow>
-                     <children>
-                        <Text fx:id="test" strokeType="OUTSIDE" strokeWidth="0.0" text="asdasda" />
-                     </children>
-                  </TextFlow>
+                  <Text fx:id="exEnglish" strokeType="OUTSIDE" strokeWidth="0.0" text="Example English">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
                </children>
-            </VBox>
+            </TextFlow>
          </children>
-      </AnchorPane>
+      </VBox>
    </children>
 </AnchorPane>
