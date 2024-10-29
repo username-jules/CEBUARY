@@ -54,11 +54,10 @@ public class DictionarySceneController {
             listView.setVisible(true);
         }
         searchBarInput = searchBar.getText();
-        System.out.println(searchBarInput);
-//        System.out.println("this is the input from the search bar: " + searchBarInput);
+
         listViewController.input(searchBarInput);
         listViewController.myListViewItems(searchBarInput);
-//        listViewController.printValues();
+
         listViewController.updateListViewItems();
     }
 }

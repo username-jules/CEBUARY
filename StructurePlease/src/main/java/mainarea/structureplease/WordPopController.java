@@ -77,7 +77,7 @@ public class WordPopController {
                     String[] split = toSplit.split(", ");
                     count = Integer.parseInt(split[0]);
                     String fileDate = split[1];
-                    System.out.println(fileDate);
+
 
                     if (!stringCurrentDate.equals(fileDate)){
                         clearTextFile(filePath);
@@ -115,9 +115,6 @@ public class WordPopController {
             // Create the file if it doesn't exist
             if (Files.notExists(filePath)) {
                 Files.createFile(filePath);
-                System.out.println("File created: " + filePath);
-            } else {
-                System.out.println("File already exists: " + filePath);
             }
         } catch (IOException e) {
             e.printStackTrace();

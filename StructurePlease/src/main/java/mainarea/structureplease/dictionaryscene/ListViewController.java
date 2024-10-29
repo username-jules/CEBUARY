@@ -67,8 +67,7 @@ public class ListViewController {
                     mainScene = DictionarySceneController.getDictionarySceneController();
                     vBox.setVisible(false);
                     mainScene.getDictionaryContent().setVisible(true);
-//
-//                    System.out.println("This is the input before passing: " + selectedKey);
+
                     dc.setInput(newValue.getCebuanoWord());
                     dc.displayDictionary();
                 }
@@ -79,50 +78,6 @@ public class ListViewController {
     public void input(String key){
         this.input = key;
     }
-
-    //creates items for the listview
-//    public ArrayList<DictionaryEntry> createListViewItems() {
-//        input = removeSpaces(input.toLowerCase());
-//
-////        System.out.println(input);
-//        //stores the results from search (keys)
-//        ArrayList<DictionaryEntry> list = new ArrayList<>();
-//
-//        //gets the map
-//        Map<String, String> map = dictionary.getDictionary();
-//        boolean isMatch = false;
-//
-//        //iterates through the dictionary map
-//        for (Map.Entry<String, String> mapElements : map.entrySet()) {
-//
-//            //takes the map within the dictionary map (inner map)
-//
-//            //takes the current key of the dictionary map
-//            String key = removeSpaces(mapElements.getKey());
-//            String value = removeSpaces(mapElements.getValue());
-//
-//            //if key contains input adds the key to the List
-//            //ex: Bienvenidos contains Bie
-//            if (key.toLowerCase().startsWith(input)) {
-//                listViewEntry(key, list);
-//                isMatch = true;
-//            }
-//            if (!isMatch) {
-//                String[] valueSplit = value.split("[.;,]+");
-//                for (String split : valueSplit) {
-//                    if (split.startsWith(input)) {
-//                        listViewEntry(key, list);
-//                    }
-//                    if (input.startsWith(split)) {
-//                        listViewEntry(key, list);
-//                    }
-//                }
-//
-//            }
-//
-//        }
-//        return list;
-//    }
 
     public ArrayList<DictionaryEntry> myListViewItems(String userInput){
         ArrayList<DictionaryEntry> results = new ArrayList<>();

@@ -54,12 +54,4 @@ public class LoadDictionary {
         return dictionary;
     }
 
-    public static void main(String[] args) {
-        LoadDictionary d = new LoadDictionary();
-        Set<String> keys = d.getDictionary().keySet();
-
-        // Print all keys
-        System.out.println("Keys: " + keys);
-    }
-
 }
