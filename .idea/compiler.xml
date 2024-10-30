@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="StructurePlease" />
+        <module name="Cebuary" />
       </profile>
     </annotationProcessing>
   </component>
